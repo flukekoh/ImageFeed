@@ -26,10 +26,8 @@ class ProfileViewController: UIViewController {
     
     func addImageView() {
         let profileImage = UIImage(named: "Userpic")
-        let imageView = UIImageView(image: profileImage)
-        
+        imageView.image = profileImage
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        self.imageView = imageView
         
         view.addSubview(imageView)
         
@@ -40,13 +38,11 @@ class ProfileViewController: UIViewController {
     }
     
     func addNameLabel() {
-        let nameLabel = UILabel()
         
         nameLabel.text = "Екатерина Новикова"
         nameLabel.font = .systemFont(ofSize: 23, weight: .medium)
         nameLabel.textColor = UIColor(named: "YPWhite")
         nameLabel.translatesAutoresizingMaskIntoConstraints = false
-        self.nameLabel = nameLabel
         
         view.addSubview(nameLabel)
         
@@ -56,13 +52,10 @@ class ProfileViewController: UIViewController {
     }
     
     func addLoginLabel() {
-        let loginLabel = UILabel()
-        
         loginLabel.text = "@ekaterina_nov"
         loginLabel.font = .systemFont(ofSize: 13)
         loginLabel.textColor = UIColor(named: "YPGray")
         loginLabel.translatesAutoresizingMaskIntoConstraints = false
-        self.loginLabel = loginLabel
         
         view.addSubview(loginLabel)
         
