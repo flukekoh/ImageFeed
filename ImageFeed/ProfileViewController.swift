@@ -65,13 +65,10 @@ class ProfileViewController: UIViewController {
     }
     
     func addDescriptionLabel() {
-        let descriptionLabel = UILabel()
-        
         descriptionLabel.text = "Hello, World!"
         descriptionLabel.font = .systemFont(ofSize: 13)
         descriptionLabel.textColor = UIColor(named: "YPWhite")
         descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
-        self.descriptionLabel = descriptionLabel
         
         view.addSubview(descriptionLabel)
         
