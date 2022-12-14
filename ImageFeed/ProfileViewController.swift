@@ -17,17 +17,11 @@ class ProfileViewController: UIViewController {
     private var button: UIButton?
     
     override func viewDidLoad() {
-        
         addImageView()
-        
         addNameLabel()
-        
         addLoginLabel()
-        
         addDescriptionLabel()
-        
         addButtonView()
-        
     }
     
     func addImageView() {
@@ -43,8 +37,6 @@ class ProfileViewController: UIViewController {
         imageView.widthAnchor.constraint(equalToConstant: 70).isActive = true
         imageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 32).isActive = true
         imageView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16).isActive = true
-        
-        
     }
     
     func addNameLabel() {
@@ -61,7 +53,6 @@ class ProfileViewController: UIViewController {
         nameLabel.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: 16).isActive = true
         nameLabel.leadingAnchor.constraint(equalTo: imageView.leadingAnchor).isActive = true
         nameLabel.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 8).isActive = true
-        
     }
     
     func addLoginLabel() {

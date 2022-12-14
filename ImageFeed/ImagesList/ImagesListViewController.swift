@@ -33,18 +33,9 @@ final class ImagesListViewController: UIViewController {
     }
     private var photosName = [String]()
     
-    private lazy var dateFormatter: DateFormatter = {
-        let formatter = DateFormatter()
-        formatter.dateStyle = .long
-        formatter.timeStyle = .none
-        return formatter
-    }()
     
-    private let activeLikeImage = UIImage(named: "Active")
-    private let noActiveLikeImage = UIImage(named: "No Active")
     
-    let colorTop =  UIColor(red: 26, green: 27, blue: 34, alpha: 0).cgColor
-    let colorBottom = UIColor(red: 26, green: 27, blue: 34, alpha: 0.2).cgColor
+    
     
 }
 
@@ -64,28 +55,7 @@ extension ImagesListViewController: UITableViewDataSource {
     }
     
     func configCell(for cell: ImagesListCell, with indexPath: IndexPath) {
-        
-        guard let cellImage = UIImage(named: "\(indexPath.row)") else {
-            return
-        }
-        
-        let gradientLayer = CAGradientLayer()
-        
-        gradientLayer.colors = [colorTop, colorBottom]
-        gradientLayer.locations = [0.0, 1.0]
-        gradientLayer.frame = cell.dateLabel.bounds
-        
-        cell.dateLabel.layer.insertSublayer(gradientLayer, at:0)
-        
-        cell.cellImage.image = cellImage
-        
-        cell.dateLabel.text = dateFormatter.string(from: Date())
-        
-        if indexPath.row % 2 == 0 {
-            cell.likeButton.imageView?.image = noActiveLikeImage
-        } else {
-            cell.likeButton.imageView?.image = activeLikeImage
-        }
+        cell.setupCell(indexPath: indexPath)
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

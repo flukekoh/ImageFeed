@@ -55,17 +55,15 @@ class SingleImageViewController: UIViewController {
         scrollView.maximumZoomScale = 1.25
         
         imageView.image = image
-        
         rescaleAndCenterImageInScrollView(image: image)
         
     }
 }
+
 extension SingleImageViewController: UIScrollViewDelegate {
     func viewForZooming(in scrollView: UIScrollView) -> UIView? {
         imageView
     }
-    
-    
 }
 
 
