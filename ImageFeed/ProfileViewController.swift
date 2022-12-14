@@ -26,7 +26,7 @@ class ProfileViewController: UIViewController {
     
     func addImageView() {
         let profileImage = UIImage(named: "Userpic")
-        var imageView = UIImageView(image: profileImage)
+        let imageView = UIImageView(image: profileImage)
         
         imageView.translatesAutoresizingMaskIntoConstraints = false
         self.imageView = imageView
@@ -40,10 +40,10 @@ class ProfileViewController: UIViewController {
     }
     
     func addNameLabel() {
-        var nameLabel = UILabel()
+        let nameLabel = UILabel()
         
         nameLabel.text = "Екатерина Новикова"
-        nameLabel.font = UIFont(name: "System", size: 23)
+        nameLabel.font = .systemFont(ofSize: 23, weight: .medium)
         nameLabel.textColor = UIColor(named: "YPWhite")
         nameLabel.translatesAutoresizingMaskIntoConstraints = false
         self.nameLabel = nameLabel
@@ -56,10 +56,10 @@ class ProfileViewController: UIViewController {
     }
     
     func addLoginLabel() {
-        var loginLabel = UILabel()
+        let loginLabel = UILabel()
         
         loginLabel.text = "@ekaterina_nov"
-        loginLabel.font = UIFont(name: "YS Display Medium", size: 13)
+        loginLabel.font = .systemFont(ofSize: 13)
         loginLabel.textColor = UIColor(named: "YPGray")
         loginLabel.translatesAutoresizingMaskIntoConstraints = false
         self.loginLabel = loginLabel
@@ -72,10 +72,10 @@ class ProfileViewController: UIViewController {
     }
     
     func addDescriptionLabel() {
-        var descriptionLabel = UILabel()
+        let descriptionLabel = UILabel()
         
         descriptionLabel.text = "Hello, World!"
-        descriptionLabel.font = UIFont(name: "YS Display Medium", size: 13)
+        descriptionLabel.font = .systemFont(ofSize: 13)
         descriptionLabel.textColor = UIColor(named: "YPWhite")
         descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
         self.descriptionLabel = descriptionLabel
