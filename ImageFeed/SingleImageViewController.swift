@@ -19,7 +19,7 @@ class SingleImageViewController: UIViewController {
     }
     @IBOutlet private var imageView: UIImageView!
     
-    @IBOutlet weak var SingleImageScrollView: UIScrollView!
+    @IBOutlet weak var scrollView: UIScrollView!
     @IBAction private func didTapBackButton() {
         dismiss(animated: true, completion: nil)
     }
@@ -33,27 +33,26 @@ class SingleImageViewController: UIViewController {
     }
     
     private func rescaleAndCenterImageInScrollView(image: UIImage) {
-        let minZoomScale = SingleImageScrollView.minimumZoomScale
-        let maxZoomScale = SingleImageScrollView.maximumZoomScale
-        view.layoutIfNeeded()
-        let visibleRectSize = SingleImageScrollView.bounds.size
+        let minZoomScale = scrollView.minimumZoomScale
+        let maxZoomScale = scrollView.maximumZoomScale
+        let visibleRectSize = view.bounds.size
         let imageSize = image.size
         let hScale = visibleRectSize.width / imageSize.width
         let vScale = visibleRectSize.height / imageSize.height
         let scale = min(maxZoomScale, max(minZoomScale, max(hScale, vScale)))
-        SingleImageScrollView.setZoomScale(scale, animated: false)
-        SingleImageScrollView.layoutIfNeeded()
-        let newContentSize = SingleImageScrollView.contentSize
+        scrollView.setZoomScale(scale, animated: false)
+        scrollView.layoutIfNeeded()
+        let newContentSize = scrollView.contentSize
         let x = (newContentSize.width - visibleRectSize.width) / 2
         let y = (newContentSize.height - visibleRectSize.height) / 2
-        SingleImageScrollView.setContentOffset(CGPoint(x: x, y: y), animated: false)
+        scrollView.setContentOffset(CGPoint(x: x, y: y), animated: false)
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        SingleImageScrollView.minimumZoomScale = 0.1
-        SingleImageScrollView.maximumZoomScale = 1.25
+        scrollView.minimumZoomScale = 0.1
+        scrollView.maximumZoomScale = 1.25
         
         imageView.image = image
         

@@ -10,17 +10,106 @@ import UIKit
 
 class ProfileViewController: UIViewController {
     
-    @IBOutlet weak var logoutButton: UIButton!
+    private var imageView = UIImageView()
+    private var nameLabel = UILabel()
+    private var loginLabel = UILabel()
+    private var descriptionLabel = UILabel()
+    private var button: UIButton?
     
-    @IBOutlet weak var userPic: UIImageView!
+    override func viewDidLoad() {
+        
+        addImageView()
+        
+        addNameLabel()
+        
+        addLoginLabel()
+        
+        addDescriptionLabel()
+        
+        addButtonView()
+        
+    }
     
-    @IBOutlet weak var nameLabel: UILabel!
+    func addImageView() {
+        let profileImage = UIImage(named: "Userpic")
+        var imageView = UIImageView(image: profileImage)
+        
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        self.imageView = imageView
+        
+        view.addSubview(imageView)
+        
+        imageView.heightAnchor.constraint(equalToConstant: 70).isActive = true
+        imageView.widthAnchor.constraint(equalToConstant: 70).isActive = true
+        imageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 32).isActive = true
+        imageView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16).isActive = true
+        
+        
+    }
     
-    @IBOutlet weak var loginLabel: UILabel!
+    func addNameLabel() {
+        var nameLabel = UILabel()
+        
+        nameLabel.text = "Екатерина Новикова"
+        nameLabel.font = UIFont(name: "System", size: 23)
+        nameLabel.textColor = UIColor(named: "YPWhite")
+        nameLabel.translatesAutoresizingMaskIntoConstraints = false
+        self.nameLabel = nameLabel
+        
+        view.addSubview(nameLabel)
+        
+        nameLabel.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: 16).isActive = true
+        nameLabel.leadingAnchor.constraint(equalTo: imageView.leadingAnchor).isActive = true
+        nameLabel.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 8).isActive = true
+        
+    }
     
-    @IBOutlet weak var descriptionLabel: UILabel!
+    func addLoginLabel() {
+        var loginLabel = UILabel()
+        
+        loginLabel.text = "@ekaterina_nov"
+        loginLabel.font = UIFont(name: "YS Display Medium", size: 13)
+        loginLabel.textColor = UIColor(named: "YPGray")
+        loginLabel.translatesAutoresizingMaskIntoConstraints = false
+        self.loginLabel = loginLabel
+        
+        view.addSubview(loginLabel)
+        
+        loginLabel.trailingAnchor.constraint(equalTo: nameLabel.trailingAnchor).isActive = true
+        loginLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 8).isActive = true
+        loginLabel.leadingAnchor.constraint(equalTo: nameLabel.leadingAnchor).isActive = true
+    }
     
+    func addDescriptionLabel() {
+        var descriptionLabel = UILabel()
+        
+        descriptionLabel.text = "Hello, World!"
+        descriptionLabel.font = UIFont(name: "YS Display Medium", size: 13)
+        descriptionLabel.textColor = UIColor(named: "YPWhite")
+        descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
+        self.descriptionLabel = descriptionLabel
+        
+        view.addSubview(descriptionLabel)
+        
+        descriptionLabel.trailingAnchor.constraint(equalTo: nameLabel.trailingAnchor).isActive = true
+        descriptionLabel.topAnchor.constraint(equalTo: loginLabel.bottomAnchor, constant: 8).isActive = true
+        descriptionLabel.leadingAnchor.constraint(equalTo: nameLabel.leadingAnchor).isActive = true
+    }
     
-    @IBAction func didTapLogoutButton(_ sender: Any) {
+    func addButtonView() {
+        var button = UIButton.systemButton(with: UIImage(named: "Exitpic") ?? UIImage(), target: self, action: #selector(self.didTapLogoutButton))
+        
+        button.tintColor = .red
+        button.translatesAutoresizingMaskIntoConstraints = false
+        self.button = button
+        
+        view.addSubview(button)
+        
+        button.leadingAnchor.constraint(greaterThanOrEqualTo: imageView.trailingAnchor).isActive = true
+        button.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 56).isActive = true
+        button.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16).isActive = true
+    }
+    
+    @objc func didTapLogoutButton(_ sender: Any) {
     }
 }
