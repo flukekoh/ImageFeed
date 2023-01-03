@@ -5,10 +5,9 @@
 //  Created by Артем Кохан on 10.12.2022.
 //
 
-import Foundation
 import UIKit
 
-class ProfileViewController: UIViewController {
+final class ProfileViewController: UIViewController {
     
     private var imageView = UIImageView()
     private var nameLabel = UILabel()
