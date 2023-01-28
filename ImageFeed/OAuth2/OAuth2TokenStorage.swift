@@ -8,7 +8,7 @@
 import Foundation
 import SwiftKeychainWrapper
 
-class OAuth2TokenStorage {
+final class OAuth2TokenStorage {
     private enum Keys: String {
         case token
     }

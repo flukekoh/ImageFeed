@@ -6,7 +6,7 @@
 //
 
 import Foundation
-class OAuth2Service {
+final class OAuth2Service {
     
     private let urlSession = URLSession.shared
     private var task: URLSessionTask?
@@ -40,7 +40,7 @@ class OAuth2Service {
             switch result {
             case .success(let result):
                 DispatchQueue.main.async {
-                    completion(.success(result.access_token))
+                    completion(.success(result.accessToken))
                     self?.task = nil                             // 14
                     
                 }
@@ -86,9 +86,9 @@ class OAuth2Service {
     
     private func makeRequest(code: String) -> URLRequest {
         
-        let UnsplashAuthorizeTokenURLString = "https://unsplash.com/oauth/token"
+        let unsplashAuthorizeTokenURLString = "https://unsplash.com/oauth/token"
         
-        var urlComponents = URLComponents(string: UnsplashAuthorizeTokenURLString)
+        var urlComponents = URLComponents(string: unsplashAuthorizeTokenURLString)
         
         urlComponents?.queryItems = [
             URLQueryItem(name: "client_id", value: accessKey),

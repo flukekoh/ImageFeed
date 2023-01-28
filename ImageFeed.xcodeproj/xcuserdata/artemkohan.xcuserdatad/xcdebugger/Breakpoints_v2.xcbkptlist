@@ -718,7 +718,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "80"
             endingLineNumber = "80"
-            landmarkName = "fetchProfileImageURL(username:token:_:)"
+            landmarkName = "makeRequest(username:token:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
