@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 final class ProfileViewController: UIViewController {
     
@@ -15,15 +16,68 @@ final class ProfileViewController: UIViewController {
     private var descriptionLabel = UILabel()
     private var button: UIButton?
     
+    private let profileService = ProfileService.shared
+    
     override func viewDidLoad() {
-        addImageView()
+        
+        nameLabel.text = profileService.profile?.username
+        loginLabel.text = profileService.profile?.username
+        descriptionLabel.text = profileService.profile?.bio
+        
+        if let avatarURL = ProfileImageService.shared.avatarURL,// 16
+           let url = URL(string: avatarURL) {                   // 17
+       
+            addImageView(url: url)
+        }
+
         addNameLabel()
         addLoginLabel()
         addDescriptionLabel()
         addButtonView()
+          
     }
     
-    func addImageView() {
+    override init(nibName: String?, bundle: Bundle?) {
+        super.init(nibName: nibName, bundle: bundle)
+        addObserver()
+    }
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        addObserver()
+    }
+    
+    deinit {
+        removeObserver()
+    }
+    
+    private func addObserver() {
+        NotificationCenter.default.addObserver(                 // 1
+            self,                                               // 2
+            selector: #selector(updateAvatar(notification:)),   // 3
+            name: ProfileImageService.DidChangeNotification,    // 4
+            object: nil)                                        // 5
+    }
+    
+    private func removeObserver() {
+        NotificationCenter.default.removeObserver(              // 6
+            self,                                               // 7
+            name: ProfileImageService.DidChangeNotification,    // 8
+            object: nil)                                        // 9
+    }
+    
+    @objc                                                       // 10
+    private func updateAvatar(notification: Notification) {     // 11
+        guard
+            isViewLoaded,                                       // 12
+            let userInfo = notification.userInfo,               // 13
+            let profileImageURL = userInfo["URL"] as? String,   // 14
+            let url = URL(string: profileImageURL)              // 15
+        else { return }
+        
+    }
+    
+    func addImageView(url: URL) {
+        imageView.kf.setImage(with: url)
         let profileImage = UIImage(named: "Userpic")
         imageView.image = profileImage
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -37,8 +91,7 @@ final class ProfileViewController: UIViewController {
     }
     
     func addNameLabel() {
-        
-        nameLabel.text = "Екатерина Новикова"
+
         nameLabel.font = .systemFont(ofSize: 23, weight: .medium)
         nameLabel.textColor = UIColor(named: "YPWhite")
         nameLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -51,7 +104,7 @@ final class ProfileViewController: UIViewController {
     }
     
     func addLoginLabel() {
-        loginLabel.text = "@ekaterina_nov"
+
         loginLabel.font = .systemFont(ofSize: 13)
         loginLabel.textColor = UIColor(named: "YPGray")
         loginLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -64,7 +117,7 @@ final class ProfileViewController: UIViewController {
     }
     
     func addDescriptionLabel() {
-        descriptionLabel.text = "Hello, World!"
+
         descriptionLabel.font = .systemFont(ofSize: 13)
         descriptionLabel.textColor = UIColor(named: "YPWhite")
         descriptionLabel.translatesAutoresizingMaskIntoConstraints = false

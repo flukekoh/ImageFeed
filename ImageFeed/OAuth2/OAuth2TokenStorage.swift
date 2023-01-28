@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftKeychainWrapper
 
 class OAuth2TokenStorage {
     private enum Keys: String {
@@ -15,11 +16,22 @@ class OAuth2TokenStorage {
     
     var token: String? {
         get {
-            userDefaults.string(forKey: Keys.token.rawValue)
+//            userDefaults.string(forKey: Keys.token.rawValue)
+            
+            KeychainWrapper.standard.string(forKey: "Auth token")
             }
         
         set {
-            userDefaults.set(newValue, forKey: Keys.token.rawValue)
+//            userDefaults.set(newValue, forKey: Keys.token.rawValue)
+            
+            guard let newValue = newValue else {return}
+            
+            let isSuccess = KeychainWrapper.standard.set(newValue, forKey: "Auth token")
+           
+            guard isSuccess else {
+                return
+                // ошибка
+            }
         }
     }
 }
