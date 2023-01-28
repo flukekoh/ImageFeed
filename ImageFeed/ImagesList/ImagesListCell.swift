@@ -14,11 +14,12 @@ class ImagesListCell: UITableViewCell {
     @IBOutlet weak var likeButton: UIButton!
     @IBOutlet weak var dateLabel: UILabel!
     
-    private let activeLikeImage = UIImage(named: "Active")
-    private let noActiveLikeImage = UIImage(named: "No Active")
-    
-    let colorTop =  UIColor(red: 26, green: 27, blue: 34, alpha: 0).cgColor
-    let colorBottom = UIColor(red: 26, green: 27, blue: 34, alpha: 0.2).cgColor
+    private enum ImageConstants {
+        static let activeLikeImage = UIImage(named: "Active")
+        static let noActiveLikeImage = UIImage(named: "No Active")
+        static let colorTop =  UIColor(red: 26, green: 27, blue: 34, alpha: 0).cgColor
+        static let colorBottom = UIColor(red: 26, green: 27, blue: 34, alpha: 0.2).cgColor
+    }
     
     private lazy var dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
@@ -34,7 +35,7 @@ class ImagesListCell: UITableViewCell {
         
         let gradientLayer = CAGradientLayer()
         
-        gradientLayer.colors = [colorTop, colorBottom]
+        gradientLayer.colors = [ImageConstants.colorTop, ImageConstants.colorBottom]
         gradientLayer.locations = [0.0, 1.0]
         gradientLayer.frame = self.dateLabel.bounds
         
@@ -45,9 +46,9 @@ class ImagesListCell: UITableViewCell {
         self.dateLabel.text = dateFormatter.string(from: Date())
         
         if indexPath.row % 2 == 0 {
-            self.likeButton.imageView?.image = noActiveLikeImage
+            self.likeButton.imageView?.image = ImageConstants.noActiveLikeImage
         } else {
-            self.likeButton.imageView?.image = activeLikeImage
+            self.likeButton.imageView?.image = ImageConstants.activeLikeImage
         }
     }
 }
