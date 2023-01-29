@@ -8,7 +8,7 @@
 import Foundation
 
 final class ProfileImageService {
-    static let DidChangeNotification = Notification.Name(rawValue: "ProfileImageProviderDidChange")
+    static let didChangeNotification = Notification.Name(rawValue: "ProfileImageProviderDidChange")
     
     static let shared = ProfileImageService()
     
@@ -21,20 +21,21 @@ final class ProfileImageService {
         case codeError
     }
     
+    private init() {
+        
+    }
+    
     func fetchProfileImageURL(username: String, token: String, _ completion: @escaping (Result<String, Error>) -> Void) {
         
         assert(Thread.isMainThread)
-        if task != nil {
-            if lastUsername != username {
-                task?.cancel()
-            } else {
-                return
-            }
-        } else {
-            if lastUsername == username {
-                return
-            }
+        
+        guard lastUsername != username else { return }
+        
+        guard task == nil else {
+            task?.cancel()
+            return
         }
+        
         lastUsername = username
         
         let request = makeRequest(username: username, token: token)
@@ -47,7 +48,9 @@ final class ProfileImageService {
             case .success(let result):
                 
                 guard let self = self else {
-                    completion(.failure(NetworkError.codeError))
+                    DispatchQueue.main.async {
+                        completion(.failure(NetworkError.codeError))
+                    }
                     return
                 }
                 self.avatarURL = result.profileImage.urlString
@@ -57,14 +60,16 @@ final class ProfileImageService {
                     completion(.success(self.avatarURL!))
                     NotificationCenter.default                                     // 1
                         .post(                                                     // 2
-                            name: ProfileImageService.DidChangeNotification,       // 3
+                            name: ProfileImageService.didChangeNotification,       // 3
                             object: self,                                          // 4
                             userInfo: ["URL": profileImageURL])
                     self.task = nil
                     
                 }
             case .failure(let error):
-                completion(.failure(error))
+                DispatchQueue.main.async {
+                    completion(.failure(error))
+                }
                 self?.lastUsername = ""                     // 16
             }
             

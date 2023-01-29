@@ -18,19 +18,17 @@ final class OAuth2Service {
     
     func fetchOAuthToken(code: String, completion: @escaping (Result<String, Error>) -> Void) {
         
-        assert(Thread.isMainThread)                         // 4
-        if task != nil {                                    // 5
-            if lastCode != code {                           // 6
-                task?.cancel()                              // 7
-            } else {
-                return                                      // 8
-            }
-        } else {
-            if lastCode == code {                           // 9
-                return
-            }
+        assert(Thread.isMainThread)
+        
+        guard lastCode != code else { return }
+        
+        guard task == nil else {
+            task?.cancel()
+            return
         }
-        lastCode = code                                     // 10
+        
+        lastCode = code
+        
         let request = makeRequest(code: code)               // 11
         
         let session = URLSession.shared
@@ -39,46 +37,15 @@ final class OAuth2Service {
             
             switch result {
             case .success(let result):
-                DispatchQueue.main.async {
-                    completion(.success(result.accessToken))
-                    self?.task = nil                             // 14
-                    
-                }
+                completion(.success(result.accessToken))
+                self?.task = nil
             case .failure(let error):
-                    self?.lastCode = nil                     // 16
+                self?.lastCode = nil
             }
             
             
         }
-//        let task = URLSession.shared.dataTask(with: request) { data, response, error in
-//
-//            if let error = error {
-//                completion(.failure(error))
-//                return
-//            }
-//
-//            if let response = response as? HTTPURLResponse,
-//               response.statusCode < 200 || response.statusCode >= 300 {
-//                completion(.failure(NetworkError.codeError))
-//                return
-//            }
-//
-//            if let data = data {
-//                do {
-//                    print(data)
-//                    let response = try JSONDecoder().decode(OAuthTokenResponseBody.self, from: data)
-//                    DispatchQueue.main.async {
-//                        completion(.success(response.access_token))
-//                        self.task = nil                             // 14
-//                        if error != nil {                           // 15
-//                            self.lastCode = nil                     // 16
-//                        }
-//                    }
-//                } catch let error {
-//                    completion(.failure(error))
-//                }
-//            }
-//        }
+        
         self.task = task
         task.resume()
         

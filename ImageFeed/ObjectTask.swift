@@ -10,6 +10,7 @@ import Foundation
 extension URLSession {
     private enum NetworkError: Error {
         case codeError
+        case wrongData
     }
     
     func objectTask<T: Decodable>(for request: URLRequest, completion: @escaping (Result<T, Error>) -> Void) -> URLSessionTask {
@@ -17,13 +18,17 @@ extension URLSession {
         let task = dataTask(with: request){ data, response, error in
             
             if let error = error {
-                completion(.failure(error))
+                DispatchQueue.main.async {
+                    completion(.failure(error))
+                }
                 return
             }
             
             if let response = response as? HTTPURLResponse,
                response.statusCode < 200 || response.statusCode >= 300 {
-                completion(.failure(NetworkError.codeError))
+                DispatchQueue.main.async {
+                    completion(.failure(NetworkError.codeError))
+                }
                 return
             }
             
@@ -35,7 +40,13 @@ extension URLSession {
                         completion(.success(response))
                     }
                 } catch let error {
-                    completion(.failure(error))
+                    DispatchQueue.main.async {
+                        completion(.failure(error))
+                    }
+                }
+            } else {
+                DispatchQueue.main.async {
+                    completion(.failure(NetworkError.wrongData))
                 }
             }
         }

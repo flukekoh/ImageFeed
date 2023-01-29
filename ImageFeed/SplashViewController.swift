@@ -42,10 +42,13 @@ final class SplashViewController: UIViewController {
     func getProfile() {
         if let token = oauth2TokenStorage.token {
             fetchProfile(token: token)
-            switchToTabBarController()
         } else {
             
-            let authViewController = AuthViewController()
+            let storyboard = UIStoryboard(name: "Main", bundle: .main)
+            
+            guard let authViewController = storyboard.instantiateViewController(
+                        withIdentifier: "AuthViewController"
+                    ) as? AuthViewController else { return }
             authViewController.delegate = self
             
             authViewController.modalPresentationStyle = .fullScreen
@@ -87,7 +90,7 @@ extension SplashViewController: AuthViewControllerDelegate {
             switch result {
             case .success(let token):
                 self.oauth2TokenStorage.token = token
-                self.switchToTabBarController()
+
                 self.fetchProfile(token: token)
                 //                UIBlockingProgressHUD.dismiss()
             case .failure:
@@ -101,13 +104,12 @@ extension SplashViewController: AuthViewControllerDelegate {
     private func fetchProfile(token: String) {
         UIBlockingProgressHUD.show()
         profileService.fetchProfile(token) { [weak self] result in
-            //            guard let self = self else { return }
             switch result {
             case .success(let profile):
                 ProfileImageService.shared.fetchProfileImageURL(username: profile.profileResult.username, token: token) { _ in }
                 
                 UIBlockingProgressHUD.dismiss()
-                //                self.switchToTabBarController()
+                self?.switchToTabBarController()
             case .failure:
                 UIBlockingProgressHUD.dismiss()
                 self?.showAlert()
