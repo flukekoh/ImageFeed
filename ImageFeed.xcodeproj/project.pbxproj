@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		A208E90B29854325001F5D0F /* AlertModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A208E90A29854325001F5D0F /* AlertModel.swift */; };
 		A208E90D2985434A001F5D0F /* AlertPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A208E90C2985434A001F5D0F /* AlertPresenter.swift */; };
-		A208E90F29865824001F5D0F /* NetworkRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A208E90E29865824001F5D0F /* NetworkRouter.swift */; };
 		A21351572976CD8E00FBE5C2 /* UIBlockingProgressHUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = A21351562976CD8E00FBE5C2 /* UIBlockingProgressHUD.swift */; };
 		A21351592976E23000FBE5C2 /* ProfileService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A21351582976E23000FBE5C2 /* ProfileService.swift */; };
 		A213515B297ED0BC00FBE5C2 /* ProfileImageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A213515A297ED0BC00FBE5C2 /* ProfileImageService.swift */; };
@@ -39,7 +38,6 @@
 /* Begin PBXFileReference section */
 		A208E90A29854325001F5D0F /* AlertModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertModel.swift; sourceTree = "<group>"; };
 		A208E90C2985434A001F5D0F /* AlertPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertPresenter.swift; sourceTree = "<group>"; };
-		A208E90E29865824001F5D0F /* NetworkRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkRouter.swift; sourceTree = "<group>"; };
 		A21351562976CD8E00FBE5C2 /* UIBlockingProgressHUD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIBlockingProgressHUD.swift; sourceTree = "<group>"; };
 		A21351582976E23000FBE5C2 /* ProfileService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileService.swift; sourceTree = "<group>"; };
 		A213515A297ED0BC00FBE5C2 /* ProfileImageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImageService.swift; sourceTree = "<group>"; };
@@ -106,7 +104,6 @@
 				A21351582976E23000FBE5C2 /* ProfileService.swift */,
 				A213515A297ED0BC00FBE5C2 /* ProfileImageService.swift */,
 				A2D3DB08295B27F70034AF21 /* SplashViewController.swift */,
-				A208E90E29865824001F5D0F /* NetworkRouter.swift */,
 				A2AC49C32944A53900476980 /* ProfileViewController.swift */,
 				A208E90C2985434A001F5D0F /* AlertPresenter.swift */,
 				A221EF6E2944DD0F008DCEF2 /* SingleImageViewController.swift */,
@@ -260,7 +257,6 @@
 				A225E43F292B89380057513B /* SceneDelegate.swift in Sources */,
 				A21351572976CD8E00FBE5C2 /* UIBlockingProgressHUD.swift in Sources */,
 				A21351592976E23000FBE5C2 /* ProfileService.swift in Sources */,
-				A208E90F29865824001F5D0F /* NetworkRouter.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
