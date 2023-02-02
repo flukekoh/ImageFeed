@@ -15,23 +15,15 @@ final class OAuth2TokenStorage {
     private let userDefaults = UserDefaults.standard
     
     var token: String? {
-        get {
-//            userDefaults.string(forKey: Keys.token.rawValue)
-            
-            KeychainWrapper.standard.string(forKey: "Auth token")
-            }
+        get { KeychainWrapper.standard.string(forKey: "Auth token") }
         
         set {
-//            userDefaults.set(newValue, forKey: Keys.token.rawValue)
-            
-            guard let newValue = newValue else {return}
-            
-            let isSuccess = KeychainWrapper.standard.set(newValue, forKey: "Auth token")
-           
-            guard isSuccess else {
+            guard let newValue = newValue else {
+                KeychainWrapper.standard.removeObject(forKey: "Auth token")
                 return
-                // ошибка
             }
+            let isSuccess = KeychainWrapper.standard.set(newValue, forKey: "Auth token")
+            guard isSuccess else { return }
         }
     }
 }

@@ -38,12 +38,11 @@ final class OAuth2Service {
             switch result {
             case .success(let result):
                 completion(.success(result.accessToken))
-                self?.task = nil
             case .failure(let error):
                 self?.lastCode = nil
             }
-            
-            
+            self?.task = nil
+
         }
         
         self.task = task

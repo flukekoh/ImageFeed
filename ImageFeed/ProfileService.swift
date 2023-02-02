@@ -37,7 +37,6 @@ final class ProfileService {
         
         let request = makeRequest(token: token)
         
-        
         let session = URLSession.shared
         
         let task = session.objectTask(for: request) { [weak self] (result: Result<ProfileResult, Error>) in
@@ -54,14 +53,14 @@ final class ProfileService {
                 
                 DispatchQueue.main.async {
                     completion(.success(profile))
-                    self.task = nil
                 }
             case .failure(let error):
                 completion(.failure(error))
                 self?.lastToken = ""
             }
+            self?.task = nil
         }
- 
+        
         self.task = task
         task.resume()
     }
@@ -79,18 +78,18 @@ final class ProfileService {
 }
 
 struct ProfileResult: Decodable {
-     var username: String
-     var firstName: String
-     var lastName: String
-     var bio: String?
-
-     enum CodingKeys: String, CodingKey {
-         case username = "username"
-         case firstName  = "first_name"
-         case lastName = "last_name"
-         case bio = "bio"
-     }
- }
+    var username: String
+    var firstName: String
+    var lastName: String
+    var bio: String?
+    
+    enum CodingKeys: String, CodingKey {
+        case username = "username"
+        case firstName  = "first_name"
+        case lastName = "last_name"
+        case bio = "bio"
+    }
+}
 
 
 struct Profile {

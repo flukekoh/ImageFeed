@@ -41,42 +41,35 @@ final class ProfileImageService {
         let request = makeRequest(username: username, token: token)
         
         let session = URLSession.shared
+        var profileImageURL: URL?
         
         let task = session.objectTask(for: request) { [weak self] (result: Result<UserResult, Error>) in
             
             switch result {
             case .success(let result):
-                
                 guard let self = self else {
-                    DispatchQueue.main.async {
-                        completion(.failure(NetworkError.codeError))
-                    }
+                    completion(.failure(NetworkError.codeError))
                     return
                 }
                 self.avatarURL = result.profileImage.urlString
-                
-                let profileImageURL = URL(string: self.avatarURL!)
-                DispatchQueue.main.async {
-                    completion(.success(self.avatarURL!))
-                    NotificationCenter.default                                     // 1
-                        .post(                                                     // 2
-                            name: ProfileImageService.didChangeNotification,       // 3
-                            object: self,                                          // 4
-                            userInfo: ["URL": profileImageURL])
-                    self.task = nil
-                    
-                }
+                profileImageURL = URL(string: self.avatarURL!)
             case .failure(let error):
-                DispatchQueue.main.async {
-                    completion(.failure(error))
-                }
-                self?.lastUsername = ""                     // 16
+                completion(.failure(error))
+                self?.lastUsername = ""
             }
             
-            
+            DispatchQueue.main.async {
+                NotificationCenter.default
+                    .post(
+                        name: ProfileImageService.didChangeNotification,
+                        object: self,
+                        userInfo: ["URL": profileImageURL])
+                guard let self = self else {
+                    return
+                }
+                self.task = nil
+            }
         }
-        
-        
         self.task = task
         task.resume()
     }
