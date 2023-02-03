@@ -14,7 +14,6 @@ final class ProfileService {
     
     private let urlSession = URLSession.shared
     private var task: URLSessionTask?
-    private var lastToken: String?
     
     private enum NetworkError: Error {
         case codeError
@@ -23,17 +22,8 @@ final class ProfileService {
     func fetchProfile(_ token: String, completion: @escaping (Result<Profile, Error>) -> Void) {
         assert(Thread.isMainThread)
         if task != nil {
-            if lastToken != token {
-                task?.cancel()
-            } else {
-                return
-            }
-        } else {
-            if lastToken == token {
-                return
-            }
+            task?.cancel()
         }
-        lastToken = token
         
         let request = makeRequest(token: token)
         
@@ -50,13 +40,9 @@ final class ProfileService {
                 }
                 let profile = Profile(profileResult: result)
                 self.profile = profile
-                
-                DispatchQueue.main.async {
-                    completion(.success(profile))
-                }
+                completion(.success(profile))
             case .failure(let error):
                 completion(.failure(error))
-                self?.lastToken = ""
             }
             self?.task = nil
         }

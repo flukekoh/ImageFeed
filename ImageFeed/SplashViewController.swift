@@ -38,23 +38,22 @@ final class SplashViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        getProfile()
+        if oauth2TokenStorage.token == nil {
+            routeToAuth()
+        }
     }
     
-    func getProfile() {
-        if oauth2TokenStorage.token == nil {
-//            fetchProfile(token: token)
-//        } else {
-            let storyboard = UIStoryboard(name: "Main", bundle: .main)
-            
-            guard let authViewController = storyboard.instantiateViewController(
-                withIdentifier: "AuthViewController"
-            ) as? AuthViewController else { return }
-            
-            authViewController.delegate = self
-            authViewController.modalPresentationStyle = .fullScreen
-            present(authViewController, animated: true)
-        }
+    func routeToAuth() {
+        let storyboard = UIStoryboard(name: "Main", bundle: .main)
+        
+        guard let authViewController = storyboard.instantiateViewController(
+            withIdentifier: "AuthViewController"
+        ) as? AuthViewController else { return }
+        
+        authViewController.delegate = self
+        authViewController.modalPresentationStyle = .fullScreen
+        present(authViewController, animated: true)
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -86,13 +85,13 @@ extension SplashViewController: AuthViewControllerDelegate {
     private func fetchOAuthToken(_ code: String) {
         oauth2Service.fetchOAuthToken(code: code) { [weak self] result in
             guard let self = self else { return }
+            
             switch result {
             case .success(let token):
                 self.oauth2TokenStorage.token = token
                 self.fetchProfile(token: token)
             case .failure:
-                // TODO [Sprint 11]
-                break
+                self.showAlert()
             }
             UIBlockingProgressHUD.dismiss()
         }
@@ -101,15 +100,14 @@ extension SplashViewController: AuthViewControllerDelegate {
     private func fetchProfile(token: String) {
         UIBlockingProgressHUD.show()
         profileService.fetchProfile(token) { [weak self] result in
+            UIBlockingProgressHUD.dismiss()
             switch result {
             case .success(let profile):
                 ProfileImageService.shared.fetchProfileImageURL(username: profile.profileResult.username, token: token) { _ in }
                 self?.switchToTabBarController()
             case .failure:
                 self?.showAlert()
-                break
             }
-            UIBlockingProgressHUD.dismiss()
         }
     }
 }
@@ -121,7 +119,7 @@ extension SplashViewController {
             message: "Не удалось войти в систему",
             buttonText: "Ок") { [weak self] in
                 guard let self = self else { return }
-                self.getProfile()
+                self.routeToAuth()
             }
         
         DispatchQueue.main.async { [weak self] in
@@ -129,8 +127,6 @@ extension SplashViewController {
             var alertPresenter = AlertPresenter(alertModel: alertModel)
             alertPresenter.viewController = self
             alertPresenter.requestAlert()
-            
-            UIBlockingProgressHUD.dismiss()
         }
     }
 }
