@@ -7,7 +7,7 @@
 
 import UIKit
 import Kingfisher
-import SwiftKeychainWrapper
+
 final class ProfileViewController: UIViewController {
     
     private var imageView = UIImageView()
@@ -19,7 +19,7 @@ final class ProfileViewController: UIViewController {
     private let profileService = ProfileService.shared
     
     override func viewDidLoad() {
-        KeychainWrapper.standard.removeObject(forKey: "Auth token")
+       
         nameLabel.text = profileService.profile?.username
         loginLabel.text = profileService.profile?.username
         descriptionLabel.text = profileService.profile?.bio
