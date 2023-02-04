@@ -32,27 +32,9 @@ final class ImagesListViewController: UIViewController {
         }
     }
     private var photosName = [String]()
-    
-    
-    
-    
-    
-}
-
-extension ImagesListViewController: UITableViewDelegate {
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
-        performSegue(withIdentifier: showSingleImageSegueIdentifier, sender: indexPath)
-        
-    }
 }
 
 extension ImagesListViewController: UITableViewDataSource {
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return photosName.count
-    }
     
     func configCell(for cell: ImagesListCell, with indexPath: IndexPath) {
         cell.setupCell(indexPath: indexPath)
@@ -68,5 +50,20 @@ extension ImagesListViewController: UITableViewDataSource {
         configCell(for: imageListCell, with: indexPath)
         return imageListCell
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        performSegue(withIdentifier: showSingleImageSegueIdentifier, sender: indexPath)
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return photosName.count
+    }
+    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        if indexPath.row + 1 == ImageListService.shared.photos.count {
+            ImageListService.shared.fetchPhotosNextPage()
+        }
+    }
+        
 }
 

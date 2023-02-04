@@ -36,8 +36,6 @@ final class ProfileImageService {
             return
         }
         
-        lastUsername = username
-        
         let request = makeRequest(username: username, token: token)
         
         let session = URLSession.shared
@@ -75,7 +73,7 @@ final class ProfileImageService {
     }
     
     private func makeRequest(username: String, token: String) -> URLRequest {
-        guard  let url = URL(string: "https://api.unsplash.com/users/\(username)") else { fatalError("Failed to create URL") }
+        guard  let url = URL(string: "https://api.unsplash.com/photos/\(username)") else { fatalError("Failed to create URL") }
         
         var request = URLRequest(url: url)
         request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")

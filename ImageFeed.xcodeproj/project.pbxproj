@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		A208E90B29854325001F5D0F /* AlertModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A208E90A29854325001F5D0F /* AlertModel.swift */; };
 		A208E90D2985434A001F5D0F /* AlertPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A208E90C2985434A001F5D0F /* AlertPresenter.swift */; };
+		A208E911298E5C25001F5D0F /* ImageListService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A208E910298E5C25001F5D0F /* ImageListService.swift */; };
 		A21351572976CD8E00FBE5C2 /* UIBlockingProgressHUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = A21351562976CD8E00FBE5C2 /* UIBlockingProgressHUD.swift */; };
 		A21351592976E23000FBE5C2 /* ProfileService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A21351582976E23000FBE5C2 /* ProfileService.swift */; };
 		A213515B297ED0BC00FBE5C2 /* ProfileImageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A213515A297ED0BC00FBE5C2 /* ProfileImageService.swift */; };
@@ -38,6 +39,7 @@
 /* Begin PBXFileReference section */
 		A208E90A29854325001F5D0F /* AlertModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertModel.swift; sourceTree = "<group>"; };
 		A208E90C2985434A001F5D0F /* AlertPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertPresenter.swift; sourceTree = "<group>"; };
+		A208E910298E5C25001F5D0F /* ImageListService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageListService.swift; sourceTree = "<group>"; };
 		A21351562976CD8E00FBE5C2 /* UIBlockingProgressHUD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIBlockingProgressHUD.swift; sourceTree = "<group>"; };
 		A21351582976E23000FBE5C2 /* ProfileService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileService.swift; sourceTree = "<group>"; };
 		A213515A297ED0BC00FBE5C2 /* ProfileImageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImageService.swift; sourceTree = "<group>"; };
@@ -104,6 +106,7 @@
 				A21351582976E23000FBE5C2 /* ProfileService.swift */,
 				A213515A297ED0BC00FBE5C2 /* ProfileImageService.swift */,
 				A2D3DB08295B27F70034AF21 /* SplashViewController.swift */,
+				A208E910298E5C25001F5D0F /* ImageListService.swift */,
 				A2AC49C32944A53900476980 /* ProfileViewController.swift */,
 				A208E90C2985434A001F5D0F /* AlertPresenter.swift */,
 				A221EF6E2944DD0F008DCEF2 /* SingleImageViewController.swift */,
@@ -239,6 +242,7 @@
 			files = (
 				A225E441292B89380057513B /* ImagesListViewController.swift in Sources */,
 				A2BD2F8C2936389F00B1C745 /* ImagesListCell.swift in Sources */,
+				A208E911298E5C25001F5D0F /* ImageListService.swift in Sources */,
 				A2D3DB072959D7430034AF21 /* OAuthTokenResponseBody.swift in Sources */,
 				A21351652982ADB100FBE5C2 /* TabBarController.swift in Sources */,
 				A2AC49C42944A53900476980 /* ProfileViewController.swift in Sources */,
