@@ -19,7 +19,8 @@ final class ProfileViewController: UIViewController {
     private let profileService = ProfileService.shared
     
     override func viewDidLoad() {
-       
+        super.viewDidLoad()
+        
         nameLabel.text = profileService.profile?.username
         loginLabel.text = profileService.profile?.username
         descriptionLabel.text = profileService.profile?.bio
