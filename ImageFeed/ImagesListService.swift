@@ -7,13 +7,13 @@
 
 import Foundation
 
-final class ImageListService {
+final class ImagesListService {
     static let didChangeNotification = Notification.Name(rawValue: "ImagesListServiceDidChange")
     
     private (set) var photos: [Photo] = []
     private var lastLoadedPage: Int?
     private var task: URLSessionTask?
-    static let shared = ImageListService()
+    static let shared = ImagesListService()
     
     private let perPage: Int = 10
     private let orderBy: String = "popular"
@@ -36,20 +36,21 @@ final class ImageListService {
             switch result {
             case .success(let result):
                 guard let self = self else {
-                    completion(.failure(NetworkError.codeError))
+//                    completion(.failure(NetworkError.codeError))
                     return
                 }
-                self.avatarURL = result.profileImage.urlString
-                profileImageURL = URL(string: self.avatarURL!)
+//                self.avatarURL = result.profileImage.urlString
+//                profileImageURL = URL(string: self.avatarURL!)
             case .failure(let error):
-                completion(.failure(error))
-                self?.lastUsername = ""
+//                completion(.failure(error))
+//                self?.lastUsername = ""
+                break
             }
             
             DispatchQueue.main.async {
                 NotificationCenter.default
                     .post(
-                        name: ImageListService.didChangeNotification,
+                        name: ImagesListService.didChangeNotification,
                         object: self,
                         userInfo: ["URL": profileImageURL])
                 guard let self = self else {
@@ -73,7 +74,7 @@ final class ImageListService {
     }
 }
 
-struct PhotoResult {
+struct PhotoResult: Decodable {
     let id: String
     let width: Int
     let height: Int
@@ -92,7 +93,7 @@ struct PhotoResult {
     }
 }
 
-struct URLsResult {
+struct URLsResult: Decodable {
     let raw: String
     let full: String
     let regular: String
