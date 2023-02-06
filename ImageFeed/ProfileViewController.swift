@@ -17,71 +17,76 @@ final class ProfileViewController: UIViewController {
     private var button: UIButton?
     
     private let profileService = ProfileService.shared
+    private var profileImageServiceObserver: NSObjectProtocol?
+    
+    var gradientImageView = CAGradientLayer()
+    var gradientNameLabel = CAGradientLayer()
+    var gradientLoginLabel = CAGradientLayer()
+    var gradientDescriptionLabel = CAGradientLayer()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = UIColor.init(named: "YPBlack")
         
         nameLabel.text = profileService.profile?.username
         loginLabel.text = profileService.profile?.username
         descriptionLabel.text = profileService.profile?.bio
         
-        if let avatarURL = ProfileImageService.shared.avatarURL,// 16
-           let url = URL(string: avatarURL) {                   // 17
-       
-            addImageView(url: url)
-        }
-
+        profileImageServiceObserver = NotificationCenter.default.addObserver(
+            forName: ProfileImageService.didChangeNotification,
+            object: nil,
+            queue: .main,
+            using: { [weak self] _ in
+                guard let self else { return }
+                self.updateAvatar()
+                
+                
+            })
+        
+        addImageView()
+        
         addNameLabel()
         addLoginLabel()
         addDescriptionLabel()
         addButtonView()
-          
-    }
-    
-    override init(nibName: String?, bundle: Bundle?) {
-        super.init(nibName: nibName, bundle: bundle)
-        addObserver()
-    }
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
-        addObserver()
-    }
-    
-    deinit {
-        removeObserver()
-    }
-    
-    private func addObserver() {
-        NotificationCenter.default.addObserver(                 // 1
-            self,                                               // 2
-            selector: #selector(updateAvatar(notification:)),   // 3
-            name: ProfileImageService.didChangeNotification,    // 4
-            object: nil)                                        // 5
-    }
-    
-    private func removeObserver() {
-        NotificationCenter.default.removeObserver(              // 6
-            self,                                               // 7
-            name: ProfileImageService.didChangeNotification,    // 8
-            object: nil)                                        // 9
-    }
-    
-    @objc                                                       // 10
-    private func updateAvatar(notification: Notification) {     // 11
-        guard
-            isViewLoaded,                                       // 12
-            let userInfo = notification.userInfo,               // 13
-            let profileImageURL = userInfo["URL"] as? String,   // 14
-            let url = URL(string: profileImageURL)              // 15
-        else { return }
         
     }
     
-    func addImageView(url: URL) {
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        if profileService.profile != nil {
+            gradientImageView.removeFromSuperlayer()
+            gradientNameLabel.removeFromSuperlayer()
+            gradientLoginLabel.removeFromSuperlayer()
+            gradientDescriptionLabel.removeFromSuperlayer()
+        }
+    }
+    private func updateAvatar() {
+        
+        guard
+            let profileImageUrl = ProfileImageService.shared.avatarURL,
+            let url = URL(string: profileImageUrl)
+        else { return }
+        
         imageView.kf.setImage(with: url)
-        let profileImage = UIImage(named: "Userpic")
-        imageView.image = profileImage
+        
+    }
+    
+    
+    func addImageView() {
+        if let avatarURL = ProfileImageService.shared.avatarURL,// 16
+           let url = URL(string: avatarURL) {
+            imageView.kf.setImage(with: url)
+        }
+        imageView.layer.masksToBounds = true
+        imageView.layer.cornerRadius = 35
+        
         imageView.translatesAutoresizingMaskIntoConstraints = false
+        
+        gradientImageView = GradientService.getGradient(size: CGSize(width: 70, height: 70), cornerRadius: 35)
+        
+        imageView.layer.addSublayer(gradientImageView)
         
         view.addSubview(imageView)
         
@@ -89,13 +94,19 @@ final class ProfileViewController: UIViewController {
         imageView.widthAnchor.constraint(equalToConstant: 70).isActive = true
         imageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 32).isActive = true
         imageView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16).isActive = true
+        
     }
     
     func addNameLabel() {
-
+        
         nameLabel.font = .systemFont(ofSize: 23, weight: .medium)
         nameLabel.textColor = UIColor(named: "YPWhite")
         nameLabel.translatesAutoresizingMaskIntoConstraints = false
+        
+        
+        gradientNameLabel = GradientService.getGradient(size: CGSize(width: 223, height: 25), cornerRadius: 9)
+        
+        nameLabel.layer.addSublayer(gradientNameLabel)
         
         view.addSubview(nameLabel)
         
@@ -105,10 +116,14 @@ final class ProfileViewController: UIViewController {
     }
     
     func addLoginLabel() {
-
+        
         loginLabel.font = .systemFont(ofSize: 13)
         loginLabel.textColor = UIColor(named: "YPGray")
         loginLabel.translatesAutoresizingMaskIntoConstraints = false
+        
+        gradientLoginLabel = GradientService.getGradient(size: CGSize(width: 89, height: 18), cornerRadius: 9)
+        
+        loginLabel.layer.addSublayer(gradientLoginLabel)
         
         view.addSubview(loginLabel)
         
@@ -118,10 +133,14 @@ final class ProfileViewController: UIViewController {
     }
     
     func addDescriptionLabel() {
-
+        
         descriptionLabel.font = .systemFont(ofSize: 13)
         descriptionLabel.textColor = UIColor(named: "YPWhite")
         descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
+        
+        gradientDescriptionLabel = GradientService.getGradient(size: CGSize(width: 67, height: 18), cornerRadius: 9)
+        
+        descriptionLabel.layer.addSublayer(gradientDescriptionLabel)
         
         view.addSubview(descriptionLabel)
         
@@ -145,5 +164,39 @@ final class ProfileViewController: UIViewController {
     }
     
     @objc func didTapLogoutButton(_ sender: Any) {
+        let alert = UIAlertController(
+            title: "Пока, Пока!",
+            message: "Уверены что хотите выйти?",
+            preferredStyle: .alert
+        )
+        
+        let agreeAction = UIAlertAction(
+            title: "Да",
+            style: .default
+        ) { [weak self] _ in
+            guard let self = self else { return }
+            DispatchQueue.main.async {
+                self.onLogout()
+            }
+        }
+        
+        let dismissAction = UIAlertAction(
+            title: "Нет",
+            style: .default
+        )
+        
+        alert.addAction(agreeAction)
+        alert.addAction(dismissAction)
+        
+        present(alert, animated: true)
     }
+
+    private func onLogout() {
+        OAuth2TokenStorage().clearToken()
+        WebViewViewController.clean()
+        tabBarController?.dismiss(animated: true)
+        guard let window = UIApplication.shared.windows.first else { fatalError("Invalid Configuration") }
+        window.rootViewController = SplashViewController()
+    }
+    
 }

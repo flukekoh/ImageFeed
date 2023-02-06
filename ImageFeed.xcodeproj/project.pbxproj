@@ -25,6 +25,7 @@
 		A225E444292B89380057513B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A225E442292B89380057513B /* Main.storyboard */; };
 		A225E446292B893A0057513B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A225E445292B893A0057513B /* Assets.xcassets */; };
 		A225E449292B893A0057513B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A225E447292B893A0057513B /* LaunchScreen.storyboard */; };
+		A291CD3129915A6F00C466B1 /* GradientService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A291CD3029915A6F00C466B1 /* GradientService.swift */; };
 		A2AC49C42944A53900476980 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2AC49C32944A53900476980 /* ProfileViewController.swift */; };
 		A2BD2F8C2936389F00B1C745 /* ImagesListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2BD2F8B2936389F00B1C745 /* ImagesListCell.swift */; };
 		A2D3DAFB2958882E0034AF21 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2D3DAFA2958882E0034AF21 /* Constants.swift */; };
@@ -67,6 +68,7 @@
 		A225E445292B893A0057513B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A225E448292B893A0057513B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A225E44A292B893A0057513B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A291CD3029915A6F00C466B1 /* GradientService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientService.swift; sourceTree = "<group>"; };
 		A2AC49C32944A53900476980 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		A2BD2F8B2936389F00B1C745 /* ImagesListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagesListCell.swift; sourceTree = "<group>"; };
 		A2D3DAFA2958882E0034AF21 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
@@ -133,12 +135,12 @@
 				A2D3DAFA2958882E0034AF21 /* Constants.swift */,
 				A21351562976CD8E00FBE5C2 /* UIBlockingProgressHUD.swift */,
 				A213515C297FD18800FBE5C2 /* ObjectTask.swift */,
+				A208E90C2985434A001F5D0F /* AlertPresenter.swift */,
 				A21351582976E23000FBE5C2 /* ProfileService.swift */,
+				A291CD3029915A6F00C466B1 /* GradientService.swift */,
 				A213515A297ED0BC00FBE5C2 /* ProfileImageService.swift */,
 				A2D3DB08295B27F70034AF21 /* SplashViewController.swift */,
-				A208E910298E5C25001F5D0F /* ImagesListService.swift */,
 				A2AC49C32944A53900476980 /* ProfileViewController.swift */,
-				A208E90C2985434A001F5D0F /* AlertPresenter.swift */,
 				A221EF6E2944DD0F008DCEF2 /* SingleImageViewController.swift */,
 				A21351642982ADB100FBE5C2 /* TabBarController.swift */,
 				A2BD2F8A2936387800B1C745 /* ImagesList */,
@@ -158,6 +160,7 @@
 			children = (
 				A225E440292B89380057513B /* ImagesListViewController.swift */,
 				A2BD2F8B2936389F00B1C745 /* ImagesListCell.swift */,
+				A208E910298E5C25001F5D0F /* ImagesListService.swift */,
 			);
 			path = ImagesList;
 			sourceTree = "<group>";
@@ -325,6 +328,7 @@
 				A2D3DAFE2958BDAA0034AF21 /* WebViewViewController.swift in Sources */,
 				A2D3DB002958BEEF0034AF21 /* AuthViewController.swift in Sources */,
 				A208E90D2985434A001F5D0F /* AlertPresenter.swift in Sources */,
+				A291CD3129915A6F00C466B1 /* GradientService.swift in Sources */,
 				A2D3DB022959D1DF0034AF21 /* OAuth2Service.swift in Sources */,
 				A225E43F292B89380057513B /* SceneDelegate.swift in Sources */,
 				A21351572976CD8E00FBE5C2 /* UIBlockingProgressHUD.swift in Sources */,

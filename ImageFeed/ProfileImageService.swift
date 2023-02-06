@@ -50,7 +50,9 @@ final class ProfileImageService {
                     return
                 }
                 self.avatarURL = result.profileImage.urlString
-                profileImageURL = URL(string: self.avatarURL!)
+                
+                guard let avatarURL = self.avatarURL else { return }
+                profileImageURL = URL(string: avatarURL)
             case .failure(let error):
                 completion(.failure(error))
                 self?.lastUsername = ""
@@ -73,12 +75,13 @@ final class ProfileImageService {
     }
     
     private func makeRequest(username: String, token: String) -> URLRequest {
-        guard  let url = URL(string: "https://api.unsplash.com/photos/\(username)") else { fatalError("Failed to create URL") }
+        guard  let url = URL(string: "https://api.unsplash.com/users/\(username)") else { fatalError("Failed to create URL") }
         
         var request = URLRequest(url: url)
         request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
         request.httpMethod = "GET"
         return request
+        
     }
 }
 

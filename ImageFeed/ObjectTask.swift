@@ -27,6 +27,7 @@ extension URLSession {
             if let response = response as? HTTPURLResponse,
                response.statusCode < 200 || response.statusCode >= 300 {
                 DispatchQueue.main.async {
+                    print(response.statusCode)
                     completion(.failure(NetworkError.codeError))
                 }
                 return
