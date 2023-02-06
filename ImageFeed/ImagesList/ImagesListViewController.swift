@@ -14,7 +14,7 @@ final class ImagesListViewController: UIViewController, ImagesListCellDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-       
+        
         imagesListServiceObserver = NotificationCenter.default.addObserver(
             forName: ImagesListService.didChangeNotification,
             object: nil,
@@ -34,11 +34,26 @@ final class ImagesListViewController: UIViewController, ImagesListCellDelegate {
         if segue.identifier == showSingleImageSegueIdentifier {
             let viewController = segue.destination as! SingleImageViewController
             let indexPath = sender as! IndexPath
-
+            
             viewController.image = photos[indexPath.row].largeImageURL
+        } else {
             super.prepare(for: segue, sender: sender)
         }
     }
+    
+    
+    //    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+    //        if segue.identifier == showSingleImageSegueIdentifier {
+    //            let viewController = segue.destination as! SingleImageViewController
+    //            let indexPath = sender as! IndexPath
+    //            let imageName = photosName[indexPath.row]
+    //            let image = UIImage(named: "\(imageName)_full_size") ?? UIImage(named: imageName)
+    //            viewController.image = image
+    //        } else {
+    //            super.prepare(for: segue, sender: sender)
+    //        }
+    //    }
+    
     private var photosName = [String]()
 }
 
@@ -60,7 +75,7 @@ extension ImagesListViewController: UITableViewDataSource {
         
         configCell(for: imageListCell, with: indexPath)
         imageListCell.delegate = self
-                
+        
         return imageListCell
     }
     
