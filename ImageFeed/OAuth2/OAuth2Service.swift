@@ -6,7 +6,11 @@
 //
 
 import Foundation
-class OAuth2Service {
+final class OAuth2Service {
+    
+    private let urlSession = URLSession.shared
+    private var task: URLSessionTask?
+    private var lastCode: String?
     
     private enum NetworkError: Error {
         case codeError
@@ -14,9 +18,43 @@ class OAuth2Service {
     
     func fetchOAuthToken(code: String, completion: @escaping (Result<String, Error>) -> Void) {
         
-        let UnsplashAuthorizeTokenURLString = "https://unsplash.com/oauth/token"
+        assert(Thread.isMainThread)
         
-        var urlComponents = URLComponents(string: UnsplashAuthorizeTokenURLString)
+        guard lastCode != code else { return }
+        
+        guard task == nil else {
+            task?.cancel()
+            return
+        }
+        
+        lastCode = code
+        
+        let request = makeRequest(code: code)               // 11
+        
+        let session = URLSession.shared
+        
+        let task = session.objectTask(for: request) { [weak self] (result: Result<OAuthTokenResponseBody, Error>) in
+            
+            switch result {
+            case .success(let result):
+                completion(.success(result.accessToken))
+            case .failure(let error):
+                self?.lastCode = nil
+            }
+            self?.task = nil
+
+        }
+        
+        self.task = task
+        task.resume()
+        
+    }
+    
+    private func makeRequest(code: String) -> URLRequest {
+        
+        let unsplashAuthorizeTokenURLString = "https://unsplash.com/oauth/token"
+        
+        var urlComponents = URLComponents(string: unsplashAuthorizeTokenURLString)
         
         urlComponents?.queryItems = [
             URLQueryItem(name: "client_id", value: accessKey),
@@ -24,39 +62,13 @@ class OAuth2Service {
             URLQueryItem(name: "redirect_uri", value: redirectURI),
             URLQueryItem(name: "code", value: code),
             URLQueryItem(name: "grant_type", value: "authorization_code")
-            ]
-     
-        guard let url = urlComponents?.url else { return completion(.failure(NetworkError.codeError)) }
+        ]
+        
+        guard let url = urlComponents?.url else { fatalError("Failed to create URL") }
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         
-        let task = URLSession.shared.dataTask(with: request) { data, response, error in
-            
-            if let error = error {
-                completion(.failure(error))
-                return
-            }
-            
-            if let response = response as? HTTPURLResponse,
-               response.statusCode < 200 || response.statusCode >= 300 {
-                completion(.failure(NetworkError.codeError))
-                return
-            }
-            
-            if let data = data {
-                do {
-                    print(data)
-                    let response = try JSONDecoder().decode(OAuthTokenResponseBody.self, from: data)
-                    DispatchQueue.main.async {
-                        completion(.success(response.access_token))
-                    }
-                } catch let error {
-                    completion(.failure(error))
-                }
-            }
-        }
-        
-        task.resume()
+        return request
     }
 }
 

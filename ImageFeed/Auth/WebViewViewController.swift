@@ -5,7 +5,6 @@
 //  Created by Артем Кохан on 25.12.2022.
 //
 
-import Foundation
 import UIKit
 import WebKit
 fileprivate let UnsplashAuthorizeURLString = "https://unsplash.com/oauth/authorize"
@@ -28,10 +27,19 @@ final class WebViewViewController: UIViewController {
     
     @IBOutlet private var progressView: UIProgressView!
     
+    private var estimatedProgressObservation: NSKeyValueObservation?
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        estimatedProgressObservation = webView.observe(
+                    \.estimatedProgress,
+                    options: [],
+                    changeHandler: { [weak self] _, _ in
+                        guard let self = self else { return }
+                        self.updateProgress()
+                    })
+        
         webView.navigationDelegate = self
 
         var urlComponents = URLComponents(string: UnsplashAuthorizeURLString)!
