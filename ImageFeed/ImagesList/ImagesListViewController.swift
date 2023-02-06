@@ -41,20 +41,15 @@ final class ImagesListViewController: UIViewController, ImagesListCellDelegate {
         }
     }
     
-    
-    //    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-    //        if segue.identifier == showSingleImageSegueIdentifier {
-    //            let viewController = segue.destination as! SingleImageViewController
-    //            let indexPath = sender as! IndexPath
-    //            let imageName = photosName[indexPath.row]
-    //            let image = UIImage(named: "\(imageName)_full_size") ?? UIImage(named: imageName)
-    //            viewController.image = image
-    //        } else {
-    //            super.prepare(for: segue, sender: sender)
-    //        }
-    //    }
-    
     private var photosName = [String]()
+}
+extension ImagesListViewController: UITableViewDelegate {
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        performSegue(withIdentifier: showSingleImageSegueIdentifier, sender: indexPath)
+        
+    }
 }
 
 extension ImagesListViewController: UITableViewDataSource {
@@ -79,9 +74,6 @@ extension ImagesListViewController: UITableViewDataSource {
         return imageListCell
     }
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        performSegue(withIdentifier: showSingleImageSegueIdentifier, sender: indexPath)
-    }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return photos.count
