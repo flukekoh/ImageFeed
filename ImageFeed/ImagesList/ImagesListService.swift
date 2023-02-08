@@ -76,7 +76,10 @@ final class ImagesListService {
             return nil
         }
         
-        guard var urlComponents = URLComponents(url: defaultBaseURL, resolvingAgainstBaseURL: false) else { fatalError() }
+        guard var urlComponents = URLComponents(url: defaultBaseURL, resolvingAgainstBaseURL: false) else {
+            assertionFailure("Invalid URL")
+            return nil
+        }
         urlComponents.path = "/photos"
         urlComponents.queryItems = [
             URLQueryItem(name: parameterNamePage, value: "\(page)"),
@@ -138,7 +141,10 @@ final class ImagesListService {
             return nil
         }
         
-        guard var urlComponents = URLComponents(url: defaultBaseURL, resolvingAgainstBaseURL: false) else { fatalError() }
+        guard var urlComponents = URLComponents(url: defaultBaseURL, resolvingAgainstBaseURL: false) else {
+            assertionFailure("Invalid url")
+            return nil
+        }
         urlComponents.path = "/photos/\(photoId)/like"
         guard let url = urlComponents.url else {
             assertionFailure("Invalid url")

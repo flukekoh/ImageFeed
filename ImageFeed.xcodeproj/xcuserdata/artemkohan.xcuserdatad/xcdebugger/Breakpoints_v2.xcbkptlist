@@ -44,8 +44,8 @@
             filePath = "ImageFeed/Auth/AuthViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "45"
-            endingLineNumber = "45"
+            startingLineNumber = "48"
+            endingLineNumber = "48"
             landmarkName = "unknown"
             landmarkType = "0">
          </BreakpointContent>
@@ -60,8 +60,8 @@
             filePath = "ImageFeed/SplashViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "86"
-            endingLineNumber = "86"
+            startingLineNumber = "89"
+            endingLineNumber = "89"
             landmarkName = "fetchOAuthToken(_:)"
             landmarkType = "7">
             <Locations>
@@ -108,8 +108,8 @@
             filePath = "ImageFeed/Auth/AuthViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "24"
-            endingLineNumber = "24"
+            startingLineNumber = "27"
+            endingLineNumber = "27"
             landmarkName = "prepare(for:sender:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -140,8 +140,8 @@
             filePath = "ImageFeed/SplashViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "92"
-            endingLineNumber = "92"
+            startingLineNumber = "95"
+            endingLineNumber = "95"
             landmarkName = "fetchOAuthToken(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -300,8 +300,8 @@
             filePath = "ImageFeed/Auth/AuthViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "32"
-            endingLineNumber = "32"
+            startingLineNumber = "35"
+            endingLineNumber = "35"
             landmarkName = "webViewViewController(_:didAuthenticateWithCode:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -556,8 +556,8 @@
             filePath = "ImageFeed/SplashViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "102"
-            endingLineNumber = "102"
+            startingLineNumber = "105"
+            endingLineNumber = "105"
             landmarkName = "fetchProfile(token:)"
             landmarkType = "7">
             <Locations>
@@ -1195,8 +1195,8 @@
             filePath = "ImageFeed/SplashViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "106"
-            endingLineNumber = "106"
+            startingLineNumber = "109"
+            endingLineNumber = "109"
             landmarkName = "fetchProfile(token:)"
             landmarkType = "7">
             <Locations>
@@ -1515,8 +1515,8 @@
             filePath = "ImageFeed/ImagesList/ImagesListService.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "104"
-            endingLineNumber = "104"
+            startingLineNumber = "107"
+            endingLineNumber = "107"
             landmarkName = "changeLike(photoId:isLike:_:)"
             landmarkType = "7">
             <Locations>
@@ -1563,8 +1563,8 @@
             filePath = "ImageFeed/ImagesList/ImagesListService.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "97"
-            endingLineNumber = "97"
+            startingLineNumber = "100"
+            endingLineNumber = "100"
             landmarkName = "changeLike(photoId:isLike:_:)"
             landmarkType = "7">
          </BreakpointContent>

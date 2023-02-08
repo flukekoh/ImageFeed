@@ -198,7 +198,10 @@ final class ProfileViewController: UIViewController {
         OAuth2TokenStorage().clearToken()
         WebViewViewController.clean()
         tabBarController?.dismiss(animated: true)
-        guard let window = UIApplication.shared.windows.first else { fatalError("Invalid Configuration") }
+        guard let window = UIApplication.shared.windows.first else {
+            assertionFailure("Invalid configuration")
+            return
+        }
         window.rootViewController = SplashViewController()
     }
     
