@@ -34,12 +34,7 @@ class ImagesListCell: UITableViewCell {
         static let stubImage = UIImage(named: "stub_image")
     }
     
-    private lazy var dateFormatter: DateFormatter = {
-        let formatter = DateFormatter()
-        formatter.dateStyle = .long
-        formatter.timeStyle = .none
-        return formatter
-    }()
+    
     
     func setupCell(photo: Photo, completion: @escaping () -> Void) {
         
@@ -62,11 +57,13 @@ class ImagesListCell: UITableViewCell {
         }
         self.gradient.removeFromSuperlayer()
         
-        self.dateLabel.text = dateFormatter.string(from: photo.createdAt ?? Date())
+        if let dateCreatedAt = photo.createdAt {
+            self.dateLabel.text = DateFormatterService.shared.getDateToString(date: dateCreatedAt)
+        } else {
+            self.dateLabel.text = ""
+        }
         
         setIsLiked(isLiked: photo.isLiked)
-        
-
     }
     
     override func prepareForReuse() {
@@ -79,5 +76,4 @@ class ImagesListCell: UITableViewCell {
              let likeImage = isLiked ? ImageConstants.activeLikeImage : ImageConstants.noActiveLikeImage
              likeButton.setImage(likeImage, for: .normal)
          }
-    
 }

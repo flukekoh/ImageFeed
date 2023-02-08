@@ -29,7 +29,8 @@ final class OAuth2Service {
         
         lastCode = code
         
-        let request = makeRequest(code: code)               // 11
+        let request = makeRequest(code: code)
+        guard let request = request else { return }
         
         let session = URLSession.shared
         
@@ -50,7 +51,7 @@ final class OAuth2Service {
         
     }
     
-    private func makeRequest(code: String) -> URLRequest {
+    private func makeRequest(code: String) -> URLRequest? {
         
         let unsplashAuthorizeTokenURLString = "https://unsplash.com/oauth/token"
         
@@ -64,7 +65,10 @@ final class OAuth2Service {
             URLQueryItem(name: "grant_type", value: "authorization_code")
         ]
         
-        guard let url = urlComponents?.url else { fatalError("Failed to create URL") }
+        guard let url = urlComponents?.url else {
+            assertionFailure("Failed to create URL")
+            return nil
+        }
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         

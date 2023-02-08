@@ -9,13 +9,8 @@ import Foundation
 import UIKit
 
 class SingleImageViewController: UIViewController {
-    var image: URL! {
-        didSet {
-            guard isViewLoaded else { return }
-            
-            setImage()
-        }
-    }
+    var imageURL: URL!
+    
     @IBOutlet private var imageView: UIImageView!
     
     @IBOutlet private var scrollView: UIScrollView!
@@ -24,6 +19,7 @@ class SingleImageViewController: UIViewController {
     }
     
     @IBAction private func didTapShareButton(_ sender: UIButton) {
+        guard let image = imageView.image else { return }
         let share = UIActivityViewController(
             activityItems: [image],
             applicationActivities: nil
@@ -33,7 +29,7 @@ class SingleImageViewController: UIViewController {
     
     func setImage() {
         UIBlockingProgressHUD.show()
-        imageView.kf.setImage(with: image) { [weak self] result in
+        imageView.kf.setImage(with: imageURL) { [weak self] result in
             UIBlockingProgressHUD.dismiss()
             
             guard let self = self else { return }
@@ -68,9 +64,8 @@ class SingleImageViewController: UIViewController {
         scrollView.minimumZoomScale = 0.1
         scrollView.maximumZoomScale = 1.25
         
-        imageView.kf.setImage(with: image)
-        guard let image = imageView.image else { return }
-        rescaleAndCenterImageInScrollView(image: image)
+        setImage()
+        
         
     }
     

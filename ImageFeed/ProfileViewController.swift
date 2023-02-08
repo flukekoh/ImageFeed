@@ -75,7 +75,7 @@ final class ProfileViewController: UIViewController {
     
     
     func addImageView() {
-        if let avatarURL = ProfileImageService.shared.avatarURL,// 16
+        if let avatarURL = ProfileImageService.shared.avatarURL,
            let url = URL(string: avatarURL) {
             imageView.kf.setImage(with: url)
         }
@@ -99,7 +99,8 @@ final class ProfileViewController: UIViewController {
     
     func addNameLabel() {
         
-        nameLabel.font = .systemFont(ofSize: 23, weight: .medium)
+        nameLabel.font = UIFont(name: "YSDisplay-Bold", size: 23)
+//        nameLabel.font = .systemFont(ofSize: 23, weight: .medium)
         nameLabel.textColor = UIColor(named: "YPWhite")
         nameLabel.translatesAutoresizingMaskIntoConstraints = false
         
@@ -117,7 +118,8 @@ final class ProfileViewController: UIViewController {
     
     func addLoginLabel() {
         
-        loginLabel.font = .systemFont(ofSize: 13)
+//        loginLabel.font = .systemFont(ofSize: 13)
+        loginLabel.font = UIFont(name: "YSDisplay-Medium", size: 13)
         loginLabel.textColor = UIColor(named: "YPGray")
         loginLabel.translatesAutoresizingMaskIntoConstraints = false
         
@@ -134,7 +136,8 @@ final class ProfileViewController: UIViewController {
     
     func addDescriptionLabel() {
         
-        descriptionLabel.font = .systemFont(ofSize: 13)
+//        descriptionLabel.font = .systemFont(ofSize: 13)
+        descriptionLabel.font = UIFont(name: "YSDisplay-Medium", size: 13)
         descriptionLabel.textColor = UIColor(named: "YPWhite")
         descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
         
@@ -165,8 +168,8 @@ final class ProfileViewController: UIViewController {
     
     @objc func didTapLogoutButton(_ sender: Any) {
         let alert = UIAlertController(
-            title: "Пока, Пока!",
-            message: "Уверены что хотите выйти?",
+            title: alertTitle,
+            message: alertMessage,
             preferredStyle: .alert
         )
         

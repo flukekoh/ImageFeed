@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class GradientService {
+final class GradientService {
     static func getGradient(size: CGSize, cornerRadius: CGFloat) -> CAGradientLayer  {
         let gradient = CAGradientLayer()
         

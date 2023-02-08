@@ -26,6 +26,7 @@ final class ProfileService {
         }
         
         let request = makeRequest(token: token)
+        guard let request = request else { return }
         
         let session = URLSession.shared
         
@@ -51,9 +52,12 @@ final class ProfileService {
         task.resume()
     }
     
-    private func makeRequest(token: String) -> URLRequest {
+    private func makeRequest(token: String) -> URLRequest? {
         
-        guard  let url = URL(string: "https://api.unsplash.com/me") else { fatalError("Failed to create URL") }
+        guard  let url = URL(string: "https://api.unsplash.com/me") else {
+            assertionFailure("Failed to create URL")
+            return nil
+        }
         
         var request = URLRequest(url: url)
         request.httpMethod = "GET"

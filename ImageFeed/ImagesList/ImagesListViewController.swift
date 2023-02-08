@@ -35,7 +35,7 @@ final class ImagesListViewController: UIViewController, ImagesListCellDelegate {
             let viewController = segue.destination as! SingleImageViewController
             let indexPath = sender as! IndexPath
             
-            viewController.image = photos[indexPath.row].largeImageURL
+            viewController.imageURL = photos[indexPath.row].largeImageURL
         } else {
             super.prepare(for: segue, sender: sender)
         }

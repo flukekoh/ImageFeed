@@ -26,6 +26,10 @@
 		A225E446292B893A0057513B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A225E445292B893A0057513B /* Assets.xcassets */; };
 		A225E449292B893A0057513B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A225E447292B893A0057513B /* LaunchScreen.storyboard */; };
 		A291CD3129915A6F00C466B1 /* GradientService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A291CD3029915A6F00C466B1 /* GradientService.swift */; };
+		A291CD332993D41500C466B1 /* DateFormatterService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A291CD322993D41500C466B1 /* DateFormatterService.swift */; };
+		A291CD352993DFB000C466B1 /* StringConstantsRU.swift in Sources */ = {isa = PBXBuildFile; fileRef = A291CD342993DFB000C466B1 /* StringConstantsRU.swift */; };
+		A291CD392993E47F00C466B1 /* YS Display-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A291CD372993E47F00C466B1 /* YS Display-Bold.ttf */; };
+		A291CD3A2993E47F00C466B1 /* YS Display-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A291CD382993E47F00C466B1 /* YS Display-Medium.ttf */; };
 		A2AC49C42944A53900476980 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2AC49C32944A53900476980 /* ProfileViewController.swift */; };
 		A2BD2F8C2936389F00B1C745 /* ImagesListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2BD2F8B2936389F00B1C745 /* ImagesListCell.swift */; };
 		A2D3DAFB2958882E0034AF21 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2D3DAFA2958882E0034AF21 /* Constants.swift */; };
@@ -69,6 +73,10 @@
 		A225E448292B893A0057513B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A225E44A292B893A0057513B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A291CD3029915A6F00C466B1 /* GradientService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientService.swift; sourceTree = "<group>"; };
+		A291CD322993D41500C466B1 /* DateFormatterService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatterService.swift; sourceTree = "<group>"; };
+		A291CD342993DFB000C466B1 /* StringConstantsRU.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringConstantsRU.swift; sourceTree = "<group>"; };
+		A291CD372993E47F00C466B1 /* YS Display-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "YS Display-Bold.ttf"; sourceTree = "<group>"; };
+		A291CD382993E47F00C466B1 /* YS Display-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "YS Display-Medium.ttf"; sourceTree = "<group>"; };
 		A2AC49C32944A53900476980 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		A2BD2F8B2936389F00B1C745 /* ImagesListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagesListCell.swift; sourceTree = "<group>"; };
 		A2D3DAFA2958882E0034AF21 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
@@ -135,7 +143,9 @@
 				A2D3DAFA2958882E0034AF21 /* Constants.swift */,
 				A21351562976CD8E00FBE5C2 /* UIBlockingProgressHUD.swift */,
 				A213515C297FD18800FBE5C2 /* ObjectTask.swift */,
+				A291CD322993D41500C466B1 /* DateFormatterService.swift */,
 				A208E90C2985434A001F5D0F /* AlertPresenter.swift */,
+				A291CD342993DFB000C466B1 /* StringConstantsRU.swift */,
 				A21351582976E23000FBE5C2 /* ProfileService.swift */,
 				A291CD3029915A6F00C466B1 /* GradientService.swift */,
 				A213515A297ED0BC00FBE5C2 /* ProfileImageService.swift */,
@@ -149,10 +159,20 @@
 				A2D3DB052959D7370034AF21 /* Models */,
 				A225E442292B89380057513B /* Main.storyboard */,
 				A225E445292B893A0057513B /* Assets.xcassets */,
+				A291CD362993E3FB00C466B1 /* Resources */,
 				A225E447292B893A0057513B /* LaunchScreen.storyboard */,
 				A225E44A292B893A0057513B /* Info.plist */,
 			);
 			path = ImageFeed;
+			sourceTree = "<group>";
+		};
+		A291CD362993E3FB00C466B1 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				A291CD372993E47F00C466B1 /* YS Display-Bold.ttf */,
+				A291CD382993E47F00C466B1 /* YS Display-Medium.ttf */,
+			);
+			path = Resources;
 			sourceTree = "<group>";
 		};
 		A2BD2F8A2936387800B1C745 /* ImagesList */ = {
@@ -293,6 +313,8 @@
 				A225E449292B893A0057513B /* LaunchScreen.storyboard in Resources */,
 				A225E446292B893A0057513B /* Assets.xcassets in Resources */,
 				A225E444292B89380057513B /* Main.storyboard in Resources */,
+				A291CD392993E47F00C466B1 /* YS Display-Bold.ttf in Resources */,
+				A291CD3A2993E47F00C466B1 /* YS Display-Medium.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -318,6 +340,7 @@
 				A21351652982ADB100FBE5C2 /* TabBarController.swift in Sources */,
 				A2AC49C42944A53900476980 /* ProfileViewController.swift in Sources */,
 				A225E43D292B89380057513B /* AppDelegate.swift in Sources */,
+				A291CD332993D41500C466B1 /* DateFormatterService.swift in Sources */,
 				A2D3DB042959D4E50034AF21 /* OAuth2TokenStorage.swift in Sources */,
 				A2D3DB09295B27F70034AF21 /* SplashViewController.swift in Sources */,
 				A213515D297FD18800FBE5C2 /* ObjectTask.swift in Sources */,
@@ -331,6 +354,7 @@
 				A291CD3129915A6F00C466B1 /* GradientService.swift in Sources */,
 				A2D3DB022959D1DF0034AF21 /* OAuth2Service.swift in Sources */,
 				A225E43F292B89380057513B /* SceneDelegate.swift in Sources */,
+				A291CD352993DFB000C466B1 /* StringConstantsRU.swift in Sources */,
 				A21351572976CD8E00FBE5C2 /* UIBlockingProgressHUD.swift in Sources */,
 				A21351592976E23000FBE5C2 /* ProfileService.swift in Sources */,
 			);

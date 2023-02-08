@@ -18,12 +18,9 @@ final class ImagesListService {
     private let perPage: Int = 10
     private let orderBy: String = "popular"
     
-    private lazy var dateFormatter: DateFormatter = {
-        let formatter = DateFormatter()
-        formatter.dateStyle = .long
-        formatter.timeStyle = .none
-        return formatter
-    }()
+    private let parameterNamePage: String = "page"
+    private let parameterNamePerPage: String = "per_page"
+    private let parameterNameOrderBy: String = "order_by"
     
     private enum NetworkError: Error {
         case codeError
@@ -32,12 +29,11 @@ final class ImagesListService {
     
     func fetchPhotosNextPage() {
         assert(Thread.isMainThread)
-        if task != nil {
-            return
-        }
+        guard task == nil else { return }
         let nextPage = lastLoadedPage == 0 ? 1 : lastLoadedPage + 1
         
         let request = makeRequest(page: nextPage)
+        guard let request = request else { return }
         
         let session = URLSession.shared
         
@@ -51,7 +47,6 @@ final class ImagesListService {
                 DispatchQueue.main.async { [weak self] in
                     guard let self = self else { return }
                     self.photos.append(contentsOf: photos.map {item in self.getPhotoResult(photo: item)})
-                    
                     
                     NotificationCenter.default.post(
                         name: ImagesListService.didChangeNotification,
@@ -71,34 +66,38 @@ final class ImagesListService {
     }
     
     private func getPhotoResult(photo: PhotoResult) -> Photo {
-        Photo(id: photo.id, size: CGSize(width: photo.width, height: photo.height), createdAt: dateFormatter.date(from: photo.createdAt) ?? Date(), welcomeDescription: photo.welcomeDescription, thumbImageURL: URL(string: photo.urls.thumb) , largeImageURL: URL(string: photo.urls.full), isLiked: photo.isLiked)
+        Photo(id: photo.id, size: CGSize(width: photo.width, height: photo.height), createdAt: DateFormatterService.shared.isoFormatter.date(from: photo.createdAt), welcomeDescription: photo.welcomeDescription, thumbImageURL: URL(string: photo.urls.thumb) , largeImageURL: URL(string: photo.urls.full), isLiked: photo.isLiked)
     }
     
-    private func makeRequest(page: Int) -> URLRequest {
-
-        guard let token = OAuth2TokenStorage().token else { fatalError("No token provided") }
-                
+    private func makeRequest(page: Int) -> URLRequest? {
+        
+        guard let token = OAuth2TokenStorage.shared.token else {
+            assertionFailure("No token saved")
+            return nil
+        }
+        
         guard var urlComponents = URLComponents(url: defaultBaseURL, resolvingAgainstBaseURL: false) else { fatalError() }
         urlComponents.path = "/photos"
         urlComponents.queryItems = [
-            URLQueryItem(name: "page", value: "\(page)"),
-            URLQueryItem(name: "per_page", value: "\(perPage)"),
-            URLQueryItem(name: "order_by", value: "\(orderBy)")
+            URLQueryItem(name: parameterNamePage, value: "\(page)"),
+            URLQueryItem(name: parameterNamePerPage, value: "\(perPage)"),
+            URLQueryItem(name: parameterNameOrderBy, value: "\(orderBy)")
         ]
-        let url = urlComponents.url!
+        guard let url = urlComponents.url else {
+            assertionFailure("Invalid url")
+            return nil
+        }
+        
         var request = URLRequest(url: url)
         request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
-        
         
         return request
     }
     
     func changeLike(photoId: String, isLike: Bool, _ completion: @escaping (Result<Void, Error>) -> Void) {
-        if task != nil {
-            return
-        }
         
         let request = makeRequest(for: photoId, isLike: isLike)
+        guard let request = request else { return }
         
         let session = URLSession.shared
         
@@ -133,18 +132,26 @@ final class ImagesListService {
         task.resume()
     }
     
-    private func makeRequest(for photoId: String, isLike: Bool) -> URLRequest {
-        guard let token = OAuth2TokenStorage().token else { fatalError("No token provided") }
+    private func makeRequest(for photoId: String, isLike: Bool) -> URLRequest? {
+        guard let token = OAuth2TokenStorage.shared.token else {
+            assertionFailure("No token saved")
+            return nil
+        }
         
         guard var urlComponents = URLComponents(url: defaultBaseURL, resolvingAgainstBaseURL: false) else { fatalError() }
         urlComponents.path = "/photos/\(photoId)/like"
-        let url = urlComponents.url!
+        guard let url = urlComponents.url else {
+            assertionFailure("Invalid url")
+            return nil
+        }
+        
         var request = URLRequest(url: url)
         request.httpMethod = isLike ? "DELETE" : "POST"
         request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
         return request
     }
 }
+
 
 struct PhotoResult: Decodable {
     let id: String
