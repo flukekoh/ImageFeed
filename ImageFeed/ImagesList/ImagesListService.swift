@@ -76,7 +76,7 @@ final class ImagesListService {
             return nil
         }
         
-        guard var urlComponents = URLComponents(url: defaultBaseURL, resolvingAgainstBaseURL: false) else {
+        guard var urlComponents = URLComponents(url: DefaultBaseURL, resolvingAgainstBaseURL: false) else {
             assertionFailure("Invalid URL")
             return nil
         }
@@ -141,7 +141,7 @@ final class ImagesListService {
             return nil
         }
         
-        guard var urlComponents = URLComponents(url: defaultBaseURL, resolvingAgainstBaseURL: false) else {
+        guard var urlComponents = URLComponents(url: DefaultBaseURL, resolvingAgainstBaseURL: false) else {
             assertionFailure("Invalid url")
             return nil
         }
