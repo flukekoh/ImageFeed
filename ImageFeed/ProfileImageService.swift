@@ -36,9 +36,8 @@ final class ProfileImageService {
             return
         }
         
-        lastUsername = username
-        
         let request = makeRequest(username: username, token: token)
+        guard let request = request else { return }
         
         let session = URLSession.shared
         var profileImageURL: URL?
@@ -52,10 +51,12 @@ final class ProfileImageService {
                     return
                 }
                 self.avatarURL = result.profileImage.urlString
-                profileImageURL = URL(string: self.avatarURL!)
+                
+                guard let avatarURL = self.avatarURL else { return }
+                profileImageURL = URL(string: avatarURL)
             case .failure(let error):
                 completion(.failure(error))
-                self?.lastUsername = ""
+                self?.lastUsername?.removeAll()
             }
             
             DispatchQueue.main.async {
@@ -74,13 +75,17 @@ final class ProfileImageService {
         task.resume()
     }
     
-    private func makeRequest(username: String, token: String) -> URLRequest {
-        guard  let url = URL(string: "https://api.unsplash.com/users/\(username)") else { fatalError("Failed to create URL") }
+    private func makeRequest(username: String, token: String) -> URLRequest? {
+        guard  let url = URL(string: "https://api.unsplash.com/users/\(username)") else {
+            assertionFailure("Failed to create URL")
+            return nil
+        }
         
         var request = URLRequest(url: url)
         request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
         request.httpMethod = "GET"
         return request
+        
     }
 }
 

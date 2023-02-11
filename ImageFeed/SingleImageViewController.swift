@@ -9,14 +9,8 @@ import Foundation
 import UIKit
 
 class SingleImageViewController: UIViewController {
-    var image: UIImage! {
-        didSet {
-            guard isViewLoaded else { return }
-            imageView.image = image
-            
-            rescaleAndCenterImageInScrollView(image: image)
-        }
-    }
+    var imageURL: URL!
+    
     @IBOutlet private var imageView: UIImageView!
     
     @IBOutlet private var scrollView: UIScrollView!
@@ -25,11 +19,27 @@ class SingleImageViewController: UIViewController {
     }
     
     @IBAction private func didTapShareButton(_ sender: UIButton) {
+        guard let image = imageView.image else { return }
         let share = UIActivityViewController(
             activityItems: [image],
             applicationActivities: nil
         )
         present(share, animated: true, completion: nil)
+    }
+    
+    func setImage() {
+        UIBlockingProgressHUD.show()
+        imageView.kf.setImage(with: imageURL) { [weak self] result in
+            UIBlockingProgressHUD.dismiss()
+            
+            guard let self = self else { return }
+            switch result {
+            case .success(let imageResult):
+                self.rescaleAndCenterImageInScrollView(image: imageResult.image)
+            case .failure:
+                self.showError()
+            }
+        }
     }
     
     private func rescaleAndCenterImageInScrollView(image: UIImage) {
@@ -54,9 +64,36 @@ class SingleImageViewController: UIViewController {
         scrollView.minimumZoomScale = 0.1
         scrollView.maximumZoomScale = 1.25
         
-        imageView.image = image
-        rescaleAndCenterImageInScrollView(image: image)
+        setImage()
         
+        
+    }
+    
+    private func showError() {
+        let alert = UIAlertController(
+            title: "Что-то пошло не так",
+            message: "Попробовать ещё раз?",
+            preferredStyle: .alert
+        )
+        
+        let dismissAction = UIAlertAction(
+            title: "Не надо",
+            style: .default
+        ) { _ in
+            alert.dismiss(animated: true)
+        }
+        
+        let retryAction = UIAlertAction(
+            title: "Попробовать еше раз?",
+            style: .default
+        ) { [weak self] _ in
+            guard let self = self else { return }
+            self.setImage()
+        }
+        alert.addAction(dismissAction)
+        alert.addAction(retryAction)
+        
+        self.present(alert, animated: true)
     }
 }
 

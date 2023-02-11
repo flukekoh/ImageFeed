@@ -11,7 +11,6 @@ final class SplashViewController: UIViewController {
     private let showAuthenticationScreenSegueIdentifier = "ShowAuthenticationScreen"
     
     private let oauth2Service = OAuth2Service()
-    private let oauth2TokenStorage = OAuth2TokenStorage()
     
     private let profileService = ProfileService.shared
     
@@ -21,7 +20,7 @@ final class SplashViewController: UIViewController {
         super.viewDidLoad()
         addImageView()
         
-        guard let token = oauth2TokenStorage.token else { return }
+        guard let token = OAuth2TokenStorage.shared.token else { return }
         fetchProfile(token: token)
     }
     
@@ -31,6 +30,7 @@ final class SplashViewController: UIViewController {
         imageView.image = logoImage
         imageView.translatesAutoresizingMaskIntoConstraints = false
         
+        view.backgroundColor = UIColor.init(named: "YPBlack")
         view.addSubview(imageView)
         
         NSLayoutConstraint.activate([imageView.centerXAnchor.constraint(equalTo: view.centerXAnchor), imageView.centerYAnchor.constraint(equalTo: view.centerYAnchor)])
@@ -38,7 +38,7 @@ final class SplashViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        if oauth2TokenStorage.token == nil {
+        if OAuth2TokenStorage.shared.token == nil {
             routeToAuth()
         }
     }
@@ -66,7 +66,10 @@ final class SplashViewController: UIViewController {
     }
     
     private func switchToTabBarController() {
-        guard let window = UIApplication.shared.windows.first else { fatalError("Invalid Configuration") }
+        guard let window = UIApplication.shared.windows.first else {
+            assertionFailure("Invalid configuration")
+            return
+        }
         let tabBarController = UIStoryboard(name: "Main", bundle: .main)
             .instantiateViewController(withIdentifier: "TabBarViewController")
         window.rootViewController = tabBarController
@@ -88,7 +91,7 @@ extension SplashViewController: AuthViewControllerDelegate {
             
             switch result {
             case .success(let token):
-                self.oauth2TokenStorage.token = token
+                OAuth2TokenStorage.shared.token = token
                 self.fetchProfile(token: token)
             case .failure:
                 self.showAlert()

@@ -14,6 +14,8 @@ final class OAuth2TokenStorage {
     }
     private let userDefaults = UserDefaults.standard
     
+    static let shared = OAuth2TokenStorage()
+    
     var token: String? {
         get { KeychainWrapper.standard.string(forKey: "Auth token") }
         
@@ -24,5 +26,9 @@ final class OAuth2TokenStorage {
                 KeychainWrapper.standard.removeObject(forKey: "Auth token")
             }
         }
+    }
+    
+    func clearToken() {
+        KeychainWrapper.standard.removeAllKeys()
     }
 }
