@@ -35,6 +35,10 @@
 		A291CD4129979FD800C466B1 /* WebViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A291CD4029979FD800C466B1 /* WebViewTests.swift */; };
 		A291CD492997A72500C466B1 /* ImageFeedUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A291CD482997A72500C466B1 /* ImageFeedUITests.swift */; };
 		A291CD4B2997A72500C466B1 /* ImageFeedUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A291CD4A2997A72500C466B1 /* ImageFeedUITestsLaunchTests.swift */; };
+		A291CD52299CF3FD00C466B1 /* ProfileViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A291CD51299CF3FD00C466B1 /* ProfileViewTests.swift */; };
+		A291CD54299CF90E00C466B1 /* ImageListViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A291CD53299CF90E00C466B1 /* ImageListViewTests.swift */; };
+		A291CD58299E23A500C466B1 /* ProfilePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A291CD57299E23A500C466B1 /* ProfilePresenter.swift */; };
+		A291CD5A299E3DED00C466B1 /* ImagesListPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A291CD59299E3DED00C466B1 /* ImagesListPresenter.swift */; };
 		A2AC49C42944A53900476980 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2AC49C32944A53900476980 /* ProfileViewController.swift */; };
 		A2BD2F8C2936389F00B1C745 /* ImagesListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2BD2F8B2936389F00B1C745 /* ImagesListCell.swift */; };
 		A2D3DAFB2958882E0034AF21 /* AuthConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2D3DAFA2958882E0034AF21 /* AuthConfiguration.swift */; };
@@ -95,6 +99,10 @@
 		A291CD462997A72400C466B1 /* ImageFeedUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ImageFeedUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A291CD482997A72500C466B1 /* ImageFeedUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageFeedUITests.swift; sourceTree = "<group>"; };
 		A291CD4A2997A72500C466B1 /* ImageFeedUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageFeedUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		A291CD51299CF3FD00C466B1 /* ProfileViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewTests.swift; sourceTree = "<group>"; };
+		A291CD53299CF90E00C466B1 /* ImageListViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageListViewTests.swift; sourceTree = "<group>"; };
+		A291CD57299E23A500C466B1 /* ProfilePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePresenter.swift; sourceTree = "<group>"; };
+		A291CD59299E3DED00C466B1 /* ImagesListPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagesListPresenter.swift; sourceTree = "<group>"; };
 		A2AC49C32944A53900476980 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		A2BD2F8B2936389F00B1C745 /* ImagesListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagesListCell.swift; sourceTree = "<group>"; };
 		A2D3DAFA2958882E0034AF21 /* AuthConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthConfiguration.swift; sourceTree = "<group>"; };
@@ -138,7 +146,9 @@
 			isa = PBXGroup;
 			children = (
 				A208E918298E6D43001F5D0F /* ImagesListServiceTests.swift */,
+				A291CD53299CF90E00C466B1 /* ImageListViewTests.swift */,
 				A291CD4029979FD800C466B1 /* WebViewTests.swift */,
+				A291CD51299CF3FD00C466B1 /* ProfileViewTests.swift */,
 			);
 			path = ImageFeedTests;
 			sourceTree = "<group>";
@@ -169,22 +179,15 @@
 				A225E43C292B89380057513B /* AppDelegate.swift */,
 				A225E43E292B89380057513B /* SceneDelegate.swift */,
 				A2D3DAFA2958882E0034AF21 /* AuthConfiguration.swift */,
-				A21351562976CD8E00FBE5C2 /* UIBlockingProgressHUD.swift */,
-				A213515C297FD18800FBE5C2 /* ObjectTask.swift */,
-				A291CD322993D41500C466B1 /* DateFormatterService.swift */,
-				A208E90C2985434A001F5D0F /* AlertPresenter.swift */,
-				A291CD342993DFB000C466B1 /* StringConstantsRU.swift */,
-				A21351582976E23000FBE5C2 /* ProfileService.swift */,
-				A291CD3029915A6F00C466B1 /* GradientService.swift */,
-				A213515A297ED0BC00FBE5C2 /* ProfileImageService.swift */,
 				A2D3DB08295B27F70034AF21 /* SplashViewController.swift */,
-				A2AC49C32944A53900476980 /* ProfileViewController.swift */,
 				A221EF6E2944DD0F008DCEF2 /* SingleImageViewController.swift */,
 				A21351642982ADB100FBE5C2 /* TabBarController.swift */,
+				A291CD55299E226800C466B1 /* Profile */,
 				A2BD2F8A2936387800B1C745 /* ImagesList */,
 				A2D3DAFC2958BD930034AF21 /* Auth */,
 				A2D3DB0A295B28F10034AF21 /* OAuth2 */,
 				A2D3DB052959D7370034AF21 /* Models */,
+				A291CD56299E229600C466B1 /* Helpers */,
 				A225E442292B89380057513B /* Main.storyboard */,
 				A225E445292B893A0057513B /* Assets.xcassets */,
 				A291CD362993E3FB00C466B1 /* Resources */,
@@ -212,11 +215,36 @@
 			path = ImageFeedUITests;
 			sourceTree = "<group>";
 		};
+		A291CD55299E226800C466B1 /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				A2AC49C32944A53900476980 /* ProfileViewController.swift */,
+				A291CD57299E23A500C466B1 /* ProfilePresenter.swift */,
+				A21351582976E23000FBE5C2 /* ProfileService.swift */,
+				A213515A297ED0BC00FBE5C2 /* ProfileImageService.swift */,
+			);
+			path = Profile;
+			sourceTree = "<group>";
+		};
+		A291CD56299E229600C466B1 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				A208E90C2985434A001F5D0F /* AlertPresenter.swift */,
+				A21351562976CD8E00FBE5C2 /* UIBlockingProgressHUD.swift */,
+				A291CD322993D41500C466B1 /* DateFormatterService.swift */,
+				A213515C297FD18800FBE5C2 /* ObjectTask.swift */,
+				A291CD3029915A6F00C466B1 /* GradientService.swift */,
+				A291CD342993DFB000C466B1 /* StringConstantsRU.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
 		A2BD2F8A2936387800B1C745 /* ImagesList */ = {
 			isa = PBXGroup;
 			children = (
 				A225E440292B89380057513B /* ImagesListViewController.swift */,
 				A2BD2F8B2936389F00B1C745 /* ImagesListCell.swift */,
+				A291CD59299E3DED00C466B1 /* ImagesListPresenter.swift */,
 				A208E910298E5C25001F5D0F /* ImagesListService.swift */,
 			);
 			path = ImagesList;
@@ -225,8 +253,8 @@
 		A2D3DAFC2958BD930034AF21 /* Auth */ = {
 			isa = PBXGroup;
 			children = (
-				A291CD3E29979B2300C466B1 /* AuthHelper.swift */,
 				A2D3DAFF2958BEEF0034AF21 /* AuthViewController.swift */,
+				A291CD3E29979B2300C466B1 /* AuthHelper.swift */,
 				A291CD3B29977AA600C466B1 /* WebViewPresenter.swift */,
 				A2D3DAFD2958BDAA0034AF21 /* WebViewViewController.swift */,
 			);
@@ -394,6 +422,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A291CD54299CF90E00C466B1 /* ImageListViewTests.swift in Sources */,
+				A291CD52299CF3FD00C466B1 /* ProfileViewTests.swift in Sources */,
 				A208E919298E6D43001F5D0F /* ImagesListServiceTests.swift in Sources */,
 				A291CD4129979FD800C466B1 /* WebViewTests.swift in Sources */,
 			);
@@ -409,6 +439,7 @@
 				A2D3DB072959D7430034AF21 /* OAuthTokenResponseBody.swift in Sources */,
 				A21351652982ADB100FBE5C2 /* TabBarController.swift in Sources */,
 				A2AC49C42944A53900476980 /* ProfileViewController.swift in Sources */,
+				A291CD5A299E3DED00C466B1 /* ImagesListPresenter.swift in Sources */,
 				A225E43D292B89380057513B /* AppDelegate.swift in Sources */,
 				A291CD332993D41500C466B1 /* DateFormatterService.swift in Sources */,
 				A2D3DB042959D4E50034AF21 /* OAuth2TokenStorage.swift in Sources */,
@@ -426,6 +457,7 @@
 				A2D3DB022959D1DF0034AF21 /* OAuth2Service.swift in Sources */,
 				A291CD3C29977AA600C466B1 /* WebViewPresenter.swift in Sources */,
 				A225E43F292B89380057513B /* SceneDelegate.swift in Sources */,
+				A291CD58299E23A500C466B1 /* ProfilePresenter.swift in Sources */,
 				A291CD352993DFB000C466B1 /* StringConstantsRU.swift in Sources */,
 				A21351572976CD8E00FBE5C2 /* UIBlockingProgressHUD.swift in Sources */,
 				A21351592976E23000FBE5C2 /* ProfileService.swift in Sources */,
