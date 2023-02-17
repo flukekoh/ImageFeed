@@ -18,6 +18,7 @@ protocol WebViewPresenterProtocol {
 final class WebViewPresenter: WebViewPresenterProtocol {
     
     var authHelper: AuthHelperProtocol
+    weak var view: WebViewViewControllerProtocol?
     
     init(authHelper: AuthHelperProtocol) {
         self.authHelper = authHelper
@@ -44,6 +45,4 @@ final class WebViewPresenter: WebViewPresenterProtocol {
         view?.load(request: request)
         didUpdateProgressValue(0)
     }
-    
-    weak var view: WebViewViewControllerProtocol?
 }

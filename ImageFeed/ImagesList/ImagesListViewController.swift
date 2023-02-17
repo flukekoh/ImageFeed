@@ -23,7 +23,6 @@ final class ImagesListViewController: UIViewController, ImagesListCellDelegate, 
         super.viewDidLoad()
          
         presenter?.viewDidLoad()
-        
     }
     
     @IBOutlet private var tableView: UITableView!
@@ -44,9 +43,7 @@ final class ImagesListViewController: UIViewController, ImagesListCellDelegate, 
 extension ImagesListViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
         performSegue(withIdentifier: showSingleImageSegueIdentifier, sender: indexPath)
-        
     }
 }
 

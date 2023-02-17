@@ -10,20 +10,9 @@ import Kingfisher
 
 protocol ProfileViewControllerProtocol: AnyObject {
     var presenter: ProfilePresenterProtocol? { get set }
-//    func updateProfileDetails(profile: Profile)
-//    func showErrorAlert()
 }
 
 final class ProfileViewController: UIViewController, ProfileViewControllerProtocol {
-//    func updateProfileDetails(profile: Profile) {
-//        <#code#>
-//    }
-//
-//    func showErrorAlert() {
-//        <#code#>
-//    }
-    
-    
     private var imageView = UIImageView()
     private var nameLabel = UILabel()
     private var loginLabel = UILabel()
@@ -43,7 +32,7 @@ final class ProfileViewController: UIViewController, ProfileViewControllerProtoc
         super.viewDidLoad()
         view.backgroundColor = UIColor.init(named: "YPBlack")
         
-        nameLabel.text = profileService.profile?.username
+        nameLabel.text = profileService.profile?.name
         loginLabel.text = profileService.profile?.username
         descriptionLabel.text = profileService.profile?.bio
         
@@ -63,13 +52,6 @@ final class ProfileViewController: UIViewController, ProfileViewControllerProtoc
         addButtonView()
     }
     
-    
-    
-//    func configure(_ presenter: ProfilePresenterProtocol) {
-//        self.presenter = presenter
-//        presenter.view = self
-//    }
-    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
@@ -81,16 +63,13 @@ final class ProfileViewController: UIViewController, ProfileViewControllerProtoc
         }
     }
     private func updateAvatar() {
-        
         guard
             let profileImageUrl = ProfileImageService.shared.avatarURL,
             let url = URL(string: profileImageUrl)
         else { return }
         
         imageView.kf.setImage(with: url)
-        
     }
-    
     
     func addImageView() {
         if let avatarURL = ProfileImageService.shared.avatarURL,
@@ -116,11 +95,9 @@ final class ProfileViewController: UIViewController, ProfileViewControllerProtoc
     }
     
     func addNameLabel() {
-        
         nameLabel.font = UIFont(name: "YSDisplay-Bold", size: 23)
         nameLabel.textColor = UIColor(named: "YPWhite")
         nameLabel.translatesAutoresizingMaskIntoConstraints = false
-        
         
         gradientNameLabel = GradientService.getGradient(size: CGSize(width: 223, height: 25), cornerRadius: 9)
         
@@ -134,7 +111,6 @@ final class ProfileViewController: UIViewController, ProfileViewControllerProtoc
     }
     
     func addLoginLabel() {
-        
         loginLabel.font = UIFont(name: "YSDisplay-Medium", size: 13)
         loginLabel.textColor = UIColor(named: "YPGray")
         loginLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -151,7 +127,6 @@ final class ProfileViewController: UIViewController, ProfileViewControllerProtoc
     }
     
     func addDescriptionLabel() {
-        
         descriptionLabel.font = UIFont(name: "YSDisplay-Medium", size: 13)
         descriptionLabel.textColor = UIColor(named: "YPWhite")
         descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -169,7 +144,7 @@ final class ProfileViewController: UIViewController, ProfileViewControllerProtoc
     
     func addButtonView() {
         var button = UIButton.systemButton(with: UIImage(named: "Exitpic") ?? UIImage(), target: self, action: #selector(self.didTapLogoutButton))
-        
+        button.accessibilityIdentifier = "logout button"
         button.tintColor = .red
         button.translatesAutoresizingMaskIntoConstraints = false
         self.button = button
@@ -182,7 +157,6 @@ final class ProfileViewController: UIViewController, ProfileViewControllerProtoc
     }
     
     @objc func didTapLogoutButton(_ sender: Any) {
-        
         guard let alert = presenter?.getAlert() else { return }
         present(alert, animated: true)
     }

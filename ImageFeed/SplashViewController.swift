@@ -9,11 +9,8 @@ import UIKit
 
 final class SplashViewController: UIViewController {
     private let showAuthenticationScreenSegueIdentifier = "ShowAuthenticationScreen"
-    
     private let oauth2Service = OAuth2Service()
-    
     private let profileService = ProfileService.shared
-    
     private var imageView = UIImageView()
     
     override func viewDidLoad() {
@@ -25,7 +22,6 @@ final class SplashViewController: UIViewController {
     }
     
     private func addImageView() {
-        
         let logoImage = UIImage(named: "splash_screen_logo")
         imageView.image = logoImage
         imageView.translatesAutoresizingMaskIntoConstraints = false

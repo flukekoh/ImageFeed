@@ -39,7 +39,6 @@ final class WebViewViewController: UIViewController & WebViewViewControllerProto
         super.viewDidLoad()
         
         webView.navigationDelegate = self
-
         presenter?.viewDidLoad()
     }
     
@@ -52,7 +51,6 @@ final class WebViewViewController: UIViewController & WebViewViewControllerProto
             forKeyPath: #keyPath(WKWebView.estimatedProgress),
             options: .new,
             context: nil)
-//        updateProgress()
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -67,11 +65,6 @@ final class WebViewViewController: UIViewController & WebViewViewControllerProto
             super.observeValue(forKeyPath: keyPath, of: object, change: change, context: context)
         }
     }
-
-//    private func updateProgress() {
-//        progressView.progress = Float(webView.estimatedProgress)
-//        progressView.isHidden = fabs(webView.estimatedProgress - 1.0) <= 0.0001
-//    }
     
     func setProgressValue(_ newValue: Float) {
         progressView.progress = newValue

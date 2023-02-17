@@ -12,9 +12,12 @@ protocol AuthHelperProtocol {
     func code(from url: URL) -> String?
 }
 
-class AuthHelper: AuthHelperProtocol {
-    
+final class AuthHelper: AuthHelperProtocol {
     let configuration: AuthConfiguration
+    
+    init(configuration: AuthConfiguration = .standard) {
+        self.configuration = configuration
+    }
     
     func authRequest() -> URLRequest {
         let url = authURL()
@@ -42,9 +45,5 @@ class AuthHelper: AuthHelperProtocol {
         } else {
             return nil
         }
-    }
-    
-    init(configuration: AuthConfiguration = .standard) {
-        self.configuration = configuration
     }
 }

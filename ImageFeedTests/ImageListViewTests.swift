@@ -21,16 +21,14 @@ final class ImagesListPresenterSpy: ImagesListPresenterProtocol {
 
 final class ImagesListTests: XCTestCase {
     func testViewControllerCallsViewDidLoad() {
-        // given
+        //Given
         let viewController = ImagesListViewController()
         let presenter = ImagesListPresenterSpy()
         viewController.presenter = presenter
         presenter.view = viewController
-        
-        // when
+        //When
         _ = viewController.view
-        
-        // then
+        //Then
         XCTAssertTrue(presenter.viewDidLoadCalled)
     }
 }

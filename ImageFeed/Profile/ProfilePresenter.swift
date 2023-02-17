@@ -47,7 +47,6 @@ final class ProfilePresenter: ProfilePresenterProtocol {
     private func onLogout() {
         OAuth2TokenStorage().clearToken()
         WebViewViewController.clean()
-//        tabBarController?.dismiss(animated: true)
         guard let window = UIApplication.shared.windows.first else {
             assertionFailure("Invalid configuration")
             return

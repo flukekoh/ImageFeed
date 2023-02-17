@@ -25,9 +25,6 @@ final class ImagesListPresenter: ImagesListPresenterProtocol {
                 self.view?.updateTableViewAnimated()
             }
         )
-        
         ImagesListService.shared.fetchPhotosNextPage()
     }
-    
-    
 }
