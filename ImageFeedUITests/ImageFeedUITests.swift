@@ -27,27 +27,28 @@ final class ImageFeedUITests: XCTestCase {
         
         XCTAssertTrue(webView.waitForExistence(timeout: 5))
         
+        sleep(5)
         let loginTextField = webView.descendants(matching: .textField).element
         XCTAssertTrue(loginTextField.waitForExistence(timeout: 10))
         
         loginTextField.tap()
-        loginTextField.typeText("")
+        loginTextField.typeText("kohanartem@gmail.com")
 //        webView.swipeUp()
         
         let passwordTextField = webView.descendants(matching: .secureTextField).element
         XCTAssertTrue(passwordTextField.waitForExistence(timeout: 5))
         
         passwordTextField.tap()
-        sleep(5)
-        passwordTextField.typeText("")
-        webView.swipeUp()
+       passwordTextField.typeText("muTtir-mubxa2-jitjys")
+        
+//        webView.swipeUp()
         let webViewsQuery = app.webViews
         webViewsQuery.buttons["Login"].tap()
         
         let tablesQuery = app.tables
+        
         let cell = tablesQuery.children(matching: .cell).element(boundBy: 0)
         
-        sleep(5)
         XCTAssertTrue(cell.waitForExistence(timeout: 5))
     }
     
@@ -87,11 +88,11 @@ final class ImageFeedUITests: XCTestCase {
         sleep(3)
         app.tabBars.buttons.element(boundBy: 1).tap()
         
-        XCTAssertTrue(app.staticTexts["Name Lastname"].exists)
-        XCTAssertTrue(app.staticTexts["@username"].exists)
+        XCTAssertTrue(app.staticTexts["Artem Kohan"].exists)
+        XCTAssertTrue(app.staticTexts["@flukekoh"].exists)
         
         app.buttons["logout button"].tap()
         
-        app.alerts["Bye bye!"].scrollViews.otherElements.buttons["Yes"].tap()
+        app.alerts["Пока, пока!"].scrollViews.otherElements.buttons["Да"].tap()
     }
 }
