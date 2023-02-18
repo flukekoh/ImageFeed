@@ -70,13 +70,12 @@ final class ImagesListService {
     }
     
     private func makeRequest(page: Int) -> URLRequest? {
-        
         guard let token = OAuth2TokenStorage.shared.token else {
             assertionFailure("No token saved")
             return nil
         }
         
-        guard var urlComponents = URLComponents(url: defaultBaseURL, resolvingAgainstBaseURL: false) else {
+        guard var urlComponents = URLComponents(url: DefaultBaseURL, resolvingAgainstBaseURL: false) else {
             assertionFailure("Invalid URL")
             return nil
         }
@@ -105,10 +104,8 @@ final class ImagesListService {
         let session = URLSession.shared
         
         let task = session.objectTask(for: request) { [weak self] (result: Result<LikeResult, Error>) in
-            
             switch result {
             case .success:
-                
                 guard let self = self else { return }
                 if let index = self.photos.firstIndex(where: { $0.id == photoId }) {
                     let photo = self.photos[index]
@@ -130,7 +127,6 @@ final class ImagesListService {
                 completion(.failure(error))
             }
         }
-        
         self.task = task
         task.resume()
     }
@@ -140,8 +136,7 @@ final class ImagesListService {
             assertionFailure("No token saved")
             return nil
         }
-        
-        guard var urlComponents = URLComponents(url: defaultBaseURL, resolvingAgainstBaseURL: false) else {
+        guard var urlComponents = URLComponents(url: DefaultBaseURL, resolvingAgainstBaseURL: false) else {
             assertionFailure("Invalid url")
             return nil
         }

@@ -8,8 +8,11 @@
 import UIKit
 import Kingfisher
 
-final class ProfileViewController: UIViewController {
-    
+protocol ProfileViewControllerProtocol: AnyObject {
+    var presenter: ProfilePresenterProtocol? { get set }
+}
+
+final class ProfileViewController: UIViewController, ProfileViewControllerProtocol {
     private var imageView = UIImageView()
     private var nameLabel = UILabel()
     private var loginLabel = UILabel()
@@ -18,6 +21,7 @@ final class ProfileViewController: UIViewController {
     
     private let profileService = ProfileService.shared
     private var profileImageServiceObserver: NSObjectProtocol?
+    var presenter: ProfilePresenterProtocol?
     
     var gradientImageView = CAGradientLayer()
     var gradientNameLabel = CAGradientLayer()
@@ -28,9 +32,11 @@ final class ProfileViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = UIColor.init(named: "YPBlack")
         
-        nameLabel.text = profileService.profile?.username
+        nameLabel.text = profileService.profile?.name
         loginLabel.text = profileService.profile?.username
         descriptionLabel.text = profileService.profile?.bio
+        
+        presenter?.viewDidLoad()
         
         profileImageServiceObserver = NotificationCenter.default.addObserver(
             forName: ProfileImageService.didChangeNotification,
@@ -39,17 +45,13 @@ final class ProfileViewController: UIViewController {
             using: { [weak self] _ in
                 guard let self else { return }
                 self.updateAvatar()
-                
-                
             })
         
         addImageView()
-        
         addNameLabel()
         addLoginLabel()
         addDescriptionLabel()
         addButtonView()
-        
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -63,16 +65,13 @@ final class ProfileViewController: UIViewController {
         }
     }
     private func updateAvatar() {
-        
         guard
             let profileImageUrl = ProfileImageService.shared.avatarURL,
             let url = URL(string: profileImageUrl)
         else { return }
         
         imageView.kf.setImage(with: url)
-        
     }
-    
     
     func addImageView() {
         if let avatarURL = ProfileImageService.shared.avatarURL,
@@ -98,12 +97,9 @@ final class ProfileViewController: UIViewController {
     }
     
     func addNameLabel() {
-        
         nameLabel.font = UIFont(name: "YSDisplay-Bold", size: 23)
-//        nameLabel.font = .systemFont(ofSize: 23, weight: .medium)
         nameLabel.textColor = UIColor(named: "YPWhite")
         nameLabel.translatesAutoresizingMaskIntoConstraints = false
-        
         
         gradientNameLabel = GradientService.getGradient(size: CGSize(width: 223, height: 25), cornerRadius: 9)
         
@@ -117,8 +113,6 @@ final class ProfileViewController: UIViewController {
     }
     
     func addLoginLabel() {
-        
-//        loginLabel.font = .systemFont(ofSize: 13)
         loginLabel.font = UIFont(name: "YSDisplay-Medium", size: 13)
         loginLabel.textColor = UIColor(named: "YPGray")
         loginLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -135,8 +129,6 @@ final class ProfileViewController: UIViewController {
     }
     
     func addDescriptionLabel() {
-        
-//        descriptionLabel.font = .systemFont(ofSize: 13)
         descriptionLabel.font = UIFont(name: "YSDisplay-Medium", size: 13)
         descriptionLabel.textColor = UIColor(named: "YPWhite")
         descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -154,7 +146,7 @@ final class ProfileViewController: UIViewController {
     
     func addButtonView() {
         var button = UIButton.systemButton(with: UIImage(named: "Exitpic") ?? UIImage(), target: self, action: #selector(self.didTapLogoutButton))
-        
+        button.accessibilityIdentifier = "logout button"
         button.tintColor = .red
         button.translatesAutoresizingMaskIntoConstraints = false
         self.button = button
@@ -167,42 +159,10 @@ final class ProfileViewController: UIViewController {
     }
     
     @objc func didTapLogoutButton(_ sender: Any) {
-        let alert = UIAlertController(
-            title: alertTitle,
-            message: alertMessage,
-            preferredStyle: .alert
-        )
-        
-        let agreeAction = UIAlertAction(
-            title: "Да",
-            style: .default
-        ) { [weak self] _ in
-            guard let self = self else { return }
-            DispatchQueue.main.async {
-                self.onLogout()
-            }
-        }
-        
-        let dismissAction = UIAlertAction(
-            title: "Нет",
-            style: .default
-        )
-        
-        alert.addAction(agreeAction)
-        alert.addAction(dismissAction)
-        
+        guard let alert = presenter?.getAlert() else { return }
         present(alert, animated: true)
     }
-
-    private func onLogout() {
-        OAuth2TokenStorage().clearToken()
-        WebViewViewController.clean()
-        tabBarController?.dismiss(animated: true)
-        guard let window = UIApplication.shared.windows.first else {
-            assertionFailure("Invalid configuration")
-            return
-        }
-        window.rootViewController = SplashViewController()
-    }
+    
+    
     
 }

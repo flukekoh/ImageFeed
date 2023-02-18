@@ -48,7 +48,6 @@ final class OAuth2Service {
         
         self.task = task
         task.resume()
-        
     }
     
     private func makeRequest(code: String) -> URLRequest? {
@@ -58,9 +57,9 @@ final class OAuth2Service {
         var urlComponents = URLComponents(string: unsplashAuthorizeTokenURLString)
         
         urlComponents?.queryItems = [
-            URLQueryItem(name: "client_id", value: accessKey),
-            URLQueryItem(name: "client_secret", value: secretKey),
-            URLQueryItem(name: "redirect_uri", value: redirectURI),
+            URLQueryItem(name: "client_id", value: AccessKey),
+            URLQueryItem(name: "client_secret", value: SecretKey),
+            URLQueryItem(name: "redirect_uri", value: RedirectURI),
             URLQueryItem(name: "code", value: code),
             URLQueryItem(name: "grant_type", value: "authorization_code")
         ]

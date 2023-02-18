@@ -7,25 +7,22 @@
 
 import UIKit
 
-final class ImagesListViewController: UIViewController, ImagesListCellDelegate {
+protocol ImagesListViewControllerProtocol: AnyObject {
+     var presenter: ImagesListPresenterProtocol? { get set }
+     func updateTableViewAnimated()
+ }
+
+final class ImagesListViewController: UIViewController, ImagesListCellDelegate, ImagesListViewControllerProtocol {
     var photos: [Photo] = []
     private let showSingleImageSegueIdentifier = "ShowSingleImage"
     private var imagesListServiceObserver: NSObjectProtocol?
     
+    var presenter: ImagesListPresenterProtocol?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        imagesListServiceObserver = NotificationCenter.default.addObserver(
-            forName: ImagesListService.didChangeNotification,
-            object: nil,
-            queue: .main,
-            using: { [weak self] _ in
-                guard let self else { return }
-                self.updateTableViewAnimated()
-            }
-        )
-        
-        ImagesListService.shared.fetchPhotosNextPage()
+         
+        presenter?.viewDidLoad()
     }
     
     @IBOutlet private var tableView: UITableView!
@@ -46,9 +43,7 @@ final class ImagesListViewController: UIViewController, ImagesListCellDelegate {
 extension ImagesListViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
         performSegue(withIdentifier: showSingleImageSegueIdentifier, sender: indexPath)
-        
     }
 }
 

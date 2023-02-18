@@ -19,7 +19,7 @@ class ImagesListCell: UITableViewCell {
     @IBOutlet weak var dateLabel: UILabel!
     
     @IBAction private func likeButtonClicked() {
-       delegate?.imageListCellDidTapLike(self)
+        delegate?.imageListCellDidTapLike(self)
     }
     
     weak var delegate: ImagesListCellDelegate?
@@ -34,10 +34,7 @@ class ImagesListCell: UITableViewCell {
         static let stubImage = UIImage(named: "stub_image")
     }
     
-    
-    
     func setupCell(photo: Photo, completion: @escaping () -> Void) {
-        
         let gradientLayer = CAGradientLayer()
         
         gradientLayer.colors = [ImageConstants.colorTop, ImageConstants.colorBottom]
@@ -52,9 +49,8 @@ class ImagesListCell: UITableViewCell {
         
         self.cellImage.kf.setImage(with: photo.thumbImageURL, placeholder: ImageConstants.stubImage) { _, _ in
             completion()
-            
-            
         }
+        self.likeButton.accessibilityIdentifier = "like button"
         self.gradient.removeFromSuperlayer()
         
         if let dateCreatedAt = photo.createdAt {
@@ -73,7 +69,7 @@ class ImagesListCell: UITableViewCell {
     }
     
     func setIsLiked(isLiked: Bool) {
-             let likeImage = isLiked ? ImageConstants.activeLikeImage : ImageConstants.noActiveLikeImage
-             likeButton.setImage(likeImage, for: .normal)
-         }
+        let likeImage = isLiked ? ImageConstants.activeLikeImage : ImageConstants.noActiveLikeImage
+        likeButton.setImage(likeImage, for: .normal)
+    }
 }
