@@ -30,7 +30,6 @@ final class ProfileTests: XCTestCase {
         let presenter = ProfileViewPresenterSpy()
         viewController.presenter = presenter
         presenter.view = viewController
-        presenter.viewDidLoad()
         // when
         _ = viewController.view
         

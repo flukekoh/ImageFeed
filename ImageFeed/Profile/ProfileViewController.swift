@@ -36,6 +36,8 @@ final class ProfileViewController: UIViewController, ProfileViewControllerProtoc
         loginLabel.text = profileService.profile?.username
         descriptionLabel.text = profileService.profile?.bio
         
+        presenter?.viewDidLoad()
+        
         profileImageServiceObserver = NotificationCenter.default.addObserver(
             forName: ProfileImageService.didChangeNotification,
             object: nil,

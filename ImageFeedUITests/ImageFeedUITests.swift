@@ -19,31 +19,33 @@ final class ImageFeedUITests: XCTestCase {
     
     func testAuth() throws {
         
-        sleep(5)
-        
         app.buttons["Authenticate"].tap()
         
         let webView = app.webViews["UnsplashWebView"]
         
-        XCTAssertTrue(webView.waitForExistence(timeout: 5))
+        XCTAssertTrue(webView.waitForExistence(timeout: 5)) // false не появилась веб вью вероятно из-за уже авторизованного пользователя
         
-        sleep(5)
         let loginTextField = webView.descendants(matching: .textField).element
-        XCTAssertTrue(loginTextField.waitForExistence(timeout: 10))
+        XCTAssertTrue(loginTextField.waitForExistence(timeout: 10)) // false закончились запросы для аккаунта unsplash или уже авторизованы на страничке
         
         loginTextField.tap()
         loginTextField.typeText("")
-//        webView.swipeUp()
         
         let passwordTextField = webView.descendants(matching: .secureTextField).element
         XCTAssertTrue(passwordTextField.waitForExistence(timeout: 5))
         
         passwordTextField.tap()
-       passwordTextField.typeText("")
+        passwordTextField.typeText("") // если падает убрать в настройка симулятора connect hardware keyboard
         
-//        webView.swipeUp()
-        let webViewsQuery = app.webViews
-        webViewsQuery.buttons["Login"].tap()
+        webView.tap()
+        
+        webView.buttons["Login"].tap()
+        
+        sleep(5)
+        
+        //        webView.buttons["Continue as Artem"].tap() //Вариант когда задается допвопрос. Иногда почему то есть иногда нет
+        
+        sleep(10)
         
         let tablesQuery = app.tables
         
@@ -56,7 +58,6 @@ final class ImageFeedUITests: XCTestCase {
         let tablesQuery = app.tables
         
         let cell = tablesQuery.children(matching: .cell).element(boundBy: 0)
-        cell.swipeUp()
         
         sleep(2)
         
@@ -88,8 +89,8 @@ final class ImageFeedUITests: XCTestCase {
         sleep(3)
         app.tabBars.buttons.element(boundBy: 1).tap()
         
-        XCTAssertTrue(app.staticTexts["Artem Kohan"].exists)
-        XCTAssertTrue(app.staticTexts["@flukekoh"].exists)
+        XCTAssertTrue(app.staticTexts[""].exists)
+        XCTAssertTrue(app.staticTexts[""].exists)
         
         app.buttons["logout button"].tap()
         

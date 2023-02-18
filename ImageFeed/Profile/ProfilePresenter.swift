@@ -11,10 +11,13 @@ import UIKit
 protocol ProfilePresenterProtocol {
     var view: ProfileViewControllerProtocol? { get set }
     func getAlert() -> UIAlertController
+    func viewDidLoad()
 }
 
 final class ProfilePresenter: ProfilePresenterProtocol {
     var view: ProfileViewControllerProtocol?
+    
+    func viewDidLoad() {}
     
     func getAlert() -> UIAlertController {
         let alert = UIAlertController(
