@@ -1,4 +1,4 @@
-<img src="https://github.com/flukekoh/iOS-FakeNFT-StarterProject-Public/assets/109647805/a7d361ce-6dc6-40e0-9752-e59832025c50" alt="drawing" width="200"/> 
+<img src="https://github.com/flukekoh/ImageFeed/assets/109647805/675b8d3d-1569-4ae3-a9f1-d06af6d9d515" alt="drawing" width="200"/> 
 
 # Лента изображений 
 ## Описание
